@@ -1,0 +1,3151 @@
+[
+  {
+    "question": "What is Crane IQ?",
+    "answer": "Crane IQ is a Flutter-based crane monitoring and management system that uses IoT sensors to track load, vibration, energy, temperature, brake status, and zone locations in real-time."
+  },
+  {
+    "question": "Which AI model does Crane IQ use?",
+    "answer": "Crane IQ uses the Llama 3 model through Groq API for AI-powered features and chatbot interactions."
+  },
+  {
+    "question": "What API key is used in Crane IQ?",
+    "answer": "Crane IQ uses Groq API key to access the Llama 3 model for natural language processing and intelligent responses."
+  },
+  {
+    "question": "Which platform is Crane IQ built on?",
+    "answer": "Crane IQ is built using Flutter framework for cross-platform mobile and web applications."
+  },
+  {
+    "question": "What database does Crane IQ use?",
+    "answer": "Crane IQ uses PostgreSQL (Supabase) as its backend database with Row Level Security enabled."
+  },
+  {
+    "question": "What is the purpose of load monitoring?",
+    "answer": "Load monitoring tracks the weight being lifted by cranes, compares it to capacity, calculates percentage utilization, and alerts when safety thresholds are exceeded."
+  },
+  {
+    "question": "What data does the load_readings table store?",
+    "answer": "The load_readings table stores crane_id, load_weight, capacity, percentage, safety_status, and timestamp for each load measurement."
+  },
+  {
+    "question": "What are the safety status values for load monitoring?",
+    "answer": "Load safety status can be: safe (normal operation), warning (approaching limit), or critical (exceeded capacity)."
+  },
+  {
+    "question": "How is load percentage calculated?",
+    "answer": "Load percentage is calculated as (load_weight / capacity) × 100 to show how much of the crane's capacity is being used."
+  },
+  {
+    "question": "What happens when load exceeds 100%?",
+    "answer": "When load exceeds 100% capacity, the system sets safety_status to 'critical' and triggers immediate alerts to prevent accidents."
+  },
+  {
+    "question": "What is vibration monitoring?",
+    "answer": "Vibration monitoring detects unusual movement patterns in crane components that may indicate mechanical issues or structural problems."
+  },
+  {
+    "question": "What data does vibration_data table contain?",
+    "answer": "The vibration_data table contains crane_id, vibration_level, frequency, axis (x, y, or z), status, and timestamp."
+  },
+  {
+    "question": "What are the three vibration axes?",
+    "answer": "Vibration is measured on three axes: x (horizontal side-to-side), y (horizontal front-to-back), and z (vertical up-down)."
+  },
+  {
+    "question": "What vibration status levels exist?",
+    "answer": "Vibration status can be: normal (acceptable levels), warning (elevated vibration), or critical (dangerous vibration requiring immediate attention)."
+  },
+  {
+    "question": "Why is vibration frequency important?",
+    "answer": "Vibration frequency helps identify specific mechanical issues, as different components vibrate at different frequencies when failing."
+  },
+  {
+    "question": "What does energy monitoring track?",
+    "answer": "Energy monitoring tracks power consumption, voltage, current, and efficiency to optimize crane operations and reduce costs."
+  },
+  {
+    "question": "What fields are in the energy_usage table?",
+    "answer": "The energy_usage table includes crane_id, power_consumption, voltage, current, efficiency, and timestamp."
+  },
+  {
+    "question": "How is energy efficiency measured?",
+    "answer": "Energy efficiency is measured as a percentage indicating how effectively the crane converts electrical power into useful work."
+  },
+  {
+    "question": "What is a normal voltage range for cranes?",
+    "answer": "Based on the sample data, cranes typically operate between 410-420 volts in this system."
+  },
+  {
+    "question": "Why monitor power consumption?",
+    "answer": "Monitoring power consumption helps identify inefficient operations, predict maintenance needs, and control energy costs."
+  },
+  {
+    "question": "What does temperature monitoring do?",
+    "answer": "Temperature monitoring tracks heat levels in critical crane components to prevent overheating and equipment failure."
+  },
+  {
+    "question": "What data is in temperature_data table?",
+    "answer": "The temperature_data table stores crane_id, temperature, humidity, location, status, and timestamp."
+  },
+  {
+    "question": "What locations are monitored for temperature?",
+    "answer": "Temperature is monitored in Motor Area, Control Panel, Gear Box, Hydraulic System, and Brake System."
+  },
+  {
+    "question": "What are temperature status levels?",
+    "answer": "Temperature status can be: normal (safe range), warning (elevated temperature), or critical (dangerous overheating)."
+  },
+  {
+    "question": "Why track humidity with temperature?",
+    "answer": "Humidity affects equipment performance and can indicate condensation issues that may damage electrical components."
+  },
+  {
+    "question": "What is brake monitoring?",
+    "answer": "Brake monitoring tracks brake position, wear level, pressure, maintenance status, and ensures brakes function safely."
+  },
+  {
+    "question": "What fields are in brake_status table?",
+    "answer": "The brake_status table includes crane_id, brake_position, wear_level, pressure, status, last_maintenance, and timestamp."
+  },
+  {
+    "question": "What are the brake positions?",
+    "answer": "Brake positions can be: engaged (brakes applied), disengaged (brakes released), or partial (partially applied)."
+  },
+  {
+    "question": "What brake status values exist?",
+    "answer": "Brake status can be: normal (good condition), maintenance (needs service soon), or critical (immediate service required)."
+  },
+  {
+    "question": "How is brake wear level measured?",
+    "answer": "Brake wear level is measured as a percentage, with higher values indicating more wear and need for replacement."
+  },
+  {
+    "question": "What is zone control?",
+    "answer": "Zone control manages designated areas where cranes can operate, including speed limits and access restrictions for safety."
+  },
+  {
+    "question": "What data is in zone_locations table?",
+    "answer": "The zone_locations table contains crane_id, zone_name, coordinates (as JSON), status, speed_limit, and timestamp."
+  },
+  {
+    "question": "What are zone status types?",
+    "answer": "Zone status can be: active (operational), restricted (limited access), or inactive (not in use)."
+  },
+  {
+    "question": "How are zone coordinates stored?",
+    "answer": "Zone coordinates are stored as JSONB with x, y, and z values representing 3D position in the workspace."
+  },
+  {
+    "question": "What is the purpose of speed limits in zones?",
+    "answer": "Speed limits in zones ensure safe crane operation in areas with personnel, obstacles, or other hazards."
+  },
+  {
+    "question": "What does error log management do?",
+    "answer": "Error log management tracks all system errors, their severity, resolution status, and helps maintain system reliability."
+  },
+  {
+    "question": "What fields are in error_logs table?",
+    "answer": "The error_logs table includes crane_id, error_code, error_message, severity, resolved (boolean), and timestamp."
+  },
+  {
+    "question": "What error severity levels exist?",
+    "answer": "Error severity levels are: low (minor issues), medium (moderate impact), high (significant problems), and critical (urgent attention needed)."
+  },
+  {
+    "question": "What does the resolved field indicate?",
+    "answer": "The resolved field is a boolean that shows whether an error has been fixed (true) or still requires attention (false)."
+  },
+  {
+    "question": "What are common error codes?",
+    "answer": "Common error codes include TEMP_HIGH (temperature exceeded), VIBRATION_WARN (unusual vibration), OVERLOAD_CRITICAL (capacity exceeded), COMM_LOST (sensor disconnected), and BRAKE_WEAR (brake maintenance needed)."
+  },
+  {
+    "question": "What is report generation?",
+    "answer": "Report generation creates detailed documents summarizing crane performance, incidents, maintenance, and operational metrics."
+  },
+  {
+    "question": "What data is in reports table?",
+    "answer": "The reports table contains report_name, report_type, generated_by, data_range (JSON), download_url, and created_at timestamp."
+  },
+  {
+    "question": "How is data_range stored in reports?",
+    "answer": "Data_range is stored as JSONB, typically containing start and end dates for the report period."
+  },
+  {
+    "question": "What happens after a report is generated?",
+    "answer": "After generation, reports are stored with a download_url where users can access the complete document."
+  },
+  {
+    "question": "Who can generate reports?",
+    "answer": "The generated_by field tracks which user created the report, typically admins or operators with appropriate permissions."
+  },
+  {
+    "question": "What is the Data Hub?",
+    "answer": "The Data Hub provides centralized data export functionality, allowing users to download crane data in various formats."
+  },
+  {
+    "question": "What fields are in data_exports table?",
+    "answer": "The data_exports table includes export_name, format, status, file_url, and created_at timestamp."
+  },
+  {
+    "question": "What export formats are supported?",
+    "answer": "Supported export formats are CSV (comma-separated values), JSON (JavaScript Object Notation), and PDF (Portable Document Format)."
+  },
+  {
+    "question": "What are data export status values?",
+    "answer": "Export status can be: pending (queued), processing (being created), completed (ready for download), or failed (error occurred)."
+  },
+  {
+    "question": "How do users access exported data?",
+    "answer": "Once an export status is 'completed', users can download the file using the provided file_url."
+  },
+  {
+    "question": "What is machine management?",
+    "answer": "Machine management tracks all cranes and heavy equipment, their specifications, locations, and operational status."
+  },
+  {
+    "question": "What data is in machines table?",
+    "answer": "The machines table contains machine_id, name, model, location, status, installed_date, last_service, and created_at."
+  },
+  {
+    "question": "What machine status types exist?",
+    "answer": "Machine status can be: active (operational), maintenance (under service), or inactive (not in use)."
+  },
+  {
+    "question": "Why track installation and service dates?",
+    "answer": "Installation and service dates help schedule preventive maintenance and track equipment lifecycle for replacement planning."
+  },
+  {
+    "question": "What crane models are in the system?",
+    "answer": "Sample crane models include Liebherr 200HC (tower crane), Konecranes GT (gantry crane), Tadano 250T (mobile crane), and Demag 100T (overhead crane)."
+  },
+  {
+    "question": "What is IoT Gateway management?",
+    "answer": "IoT Gateway management monitors network devices that collect and transmit sensor data from cranes to the central system."
+  },
+  {
+    "question": "What fields are in iot_gateways table?",
+    "answer": "The iot_gateways table includes gateway_id, name, location, status, ip_address, last_seen, and created_at."
+  },
+  {
+    "question": "What gateway status types exist?",
+    "answer": "Gateway status can be: online (functioning normally), offline (not connected), or maintenance (being serviced)."
+  },
+  {
+    "question": "Why monitor gateway IP addresses?",
+    "answer": "Monitoring IP addresses helps troubleshoot network issues and ensures proper communication between devices and the system."
+  },
+  {
+    "question": "What does last_seen indicate?",
+    "answer": "The last_seen timestamp shows when the gateway last communicated with the system, helping detect connectivity problems."
+  },
+  {
+    "question": "What is device management?",
+    "answer": "Device management tracks individual sensors, controllers, and monitors connected to IoT gateways for data collection."
+  },
+  {
+    "question": "What data is in devices table?",
+    "answer": "The devices table contains device_id, name, type, gateway_id, status, last_reading, and created_at timestamp."
+  },
+  {
+    "question": "What device types are supported?",
+    "answer": "Device types include: sensor (measures data), controller (manages operations), and monitor (observes conditions)."
+  },
+  {
+    "question": "What device status values exist?",
+    "answer": "Device status can be: active (working properly), inactive (turned off), or error (malfunction detected)."
+  },
+  {
+    "question": "How are devices linked to gateways?",
+    "answer": "Devices are linked to gateways through the gateway_id field, which references the iot_gateways table."
+  },
+  {
+    "question": "What is user management?",
+    "answer": "User management handles app users, their roles, permissions, and subscription plans for accessing the Crane IQ system."
+  },
+  {
+    "question": "What fields are in app_users table?",
+    "answer": "The app_users table includes id, email, role, plan_type, and created_at timestamp."
+  },
+  {
+    "question": "What user roles are available?",
+    "answer": "User roles include: admin (full access), operator (manage operations), and viewer (read-only access)."
+  },
+  {
+    "question": "What is the default plan type?",
+    "answer": "The default plan_type is 'pro_plan', which provides full access to all Crane IQ features."
+  },
+  {
+    "question": "How is user email used?",
+    "answer": "Email is used as a unique identifier for users and for authentication and communication purposes."
+  },
+  {
+    "question": "What is Row Level Security?",
+    "answer": "Row Level Security (RLS) is a PostgreSQL feature that controls which rows users can access based on policies defined at the database level."
+  },
+  {
+    "question": "Why enable RLS on tables?",
+    "answer": "RLS is enabled to ensure data security, prevent unauthorized access, and enforce role-based permissions at the database layer."
+  },
+  {
+    "question": "What does 'FOR SELECT USING (true)' mean?",
+    "answer": "This policy allows all users to read (SELECT) data from the table without restrictions."
+  },
+  {
+    "question": "What does auth.role() check?",
+    "answer": "The auth.role() function checks if the current user is authenticated before allowing write operations (INSERT, UPDATE, DELETE)."
+  },
+  {
+    "question": "What is WITH CHECK in policies?",
+    "answer": "WITH CHECK defines conditions that must be true when inserting or updating rows, ensuring data integrity."
+  },
+  {
+    "question": "What are database indexes?",
+    "answer": "Indexes are database structures that improve query performance by allowing faster data retrieval on frequently searched columns."
+  },
+  {
+    "question": "Why index timestamp columns?",
+    "answer": "Timestamp columns are indexed because queries often filter or sort by date/time, and indexes make these operations much faster."
+  },
+  {
+    "question": "What does DESC in index mean?",
+    "answer": "DESC means descending order, so the index sorts timestamps from newest to oldest for efficient recent data retrieval."
+  },
+  {
+    "question": "What is gen_random_uuid()?",
+    "answer": "gen_random_uuid() is a PostgreSQL function that generates a unique identifier (UUID) for each new database row."
+  },
+  {
+    "question": "Why use UUID as primary key?",
+    "answer": "UUIDs are used as primary keys because they're globally unique, prevent ID conflicts, and work well in distributed systems."
+  },
+  {
+    "question": "What is JSONB data type?",
+    "answer": "JSONB is a binary JSON format in PostgreSQL that efficiently stores structured data like coordinates or configuration objects."
+  },
+  {
+    "question": "What is CHECK constraint?",
+    "answer": "CHECK constraints ensure that values in a column meet specific criteria, like status being one of predefined valid values."
+  },
+  {
+    "question": "What does TIMESTAMPTZ store?",
+    "answer": "TIMESTAMPTZ stores timestamp with timezone information, ensuring correct time representation across different geographic locations."
+  },
+  {
+    "question": "What is DEFAULT NOW()?",
+    "answer": "DEFAULT NOW() automatically sets the current timestamp when a new row is inserted, tracking when events occurred."
+  },
+  {
+    "question": "What is DECIMAL data type?",
+    "answer": "DECIMAL stores precise numeric values with specified precision and scale, essential for accurate measurements like weight or temperature."
+  },
+  {
+    "question": "What does DECIMAL(10,2) mean?",
+    "answer": "DECIMAL(10,2) means up to 10 total digits with 2 decimal places, suitable for values like 12345678.99."
+  },
+  {
+    "question": "What is a foreign key?",
+    "answer": "A foreign key is a column that references the primary key of another table, establishing relationships between tables."
+  },
+  {
+    "question": "What does REFERENCES do?",
+    "answer": "REFERENCES creates a foreign key constraint that ensures referenced values exist in the parent table, maintaining referential integrity."
+  },
+  {
+    "question": "What is CREATE TABLE IF NOT EXISTS?",
+    "answer": "CREATE TABLE IF NOT EXISTS only creates the table if it doesn't already exist, preventing errors when running scripts multiple times."
+  },
+  {
+    "question": "What does DROP POLICY IF EXISTS do?",
+    "answer": "DROP POLICY IF EXISTS removes an existing security policy if present, allowing safe policy updates without errors."
+  },
+  {
+    "question": "What is ALTER TABLE?",
+    "answer": "ALTER TABLE modifies existing table structure, such as enabling security features or adding constraints."
+  },
+  {
+    "question": "What is FOR ALL in policies?",
+    "answer": "FOR ALL applies the policy to all operations (SELECT, INSERT, UPDATE, DELETE) rather than just specific actions."
+  },
+  {
+    "question": "What does USING (true) mean?",
+    "answer": "USING (true) means the policy always allows the operation without additional conditions, granting universal access."
+  },
+  {
+    "question": "What is CREATE INDEX IF NOT EXISTS?",
+    "answer": "CREATE INDEX IF NOT EXISTS creates an index only if it doesn't already exist, preventing duplicate index errors."
+  },
+  {
+    "question": "What is INSERT INTO?",
+    "answer": "INSERT INTO adds new rows of data to a table with specified column values."
+  },
+  {
+    "question": "What is the VALUES clause?",
+    "answer": "VALUES clause specifies the actual data to be inserted into table columns in the order they're listed."
+  },
+  {
+    "question": "What crane IDs are in the sample data?",
+    "answer": "Sample crane IDs include CRANE-001, CRANE-002, and CRANE-003, used to identify different cranes in the system."
+  },
+  {
+    "question": "What is a typical crane capacity?",
+    "answer": "Based on sample data, typical crane capacity is 5000 units (likely kg or lbs), with loads ranging from 3200 to 5100."
+  },
+  {
+    "question": "What vibration level is considered critical?",
+    "answer": "Vibration levels above 5.0 are typically marked as critical, indicating potential mechanical failure requiring immediate attention."
+  },
+  {
+    "question": "What is normal power consumption range?",
+    "answer": "Normal power consumption ranges from about 95 to 145 units, with higher values (210-285) indicating heavy load operations."
+  },
+  {
+    "question": "What temperature is considered critical?",
+    "answer": "Temperatures above 60°C are typically marked as critical, especially in brake systems and control panels."
+  },
+  {
+    "question": "What brake wear level needs maintenance?",
+    "answer": "Brake wear levels above 45% typically require maintenance, and above 60% are considered critical needing immediate service."
+  },
+  {
+    "question": "What is a typical brake pressure?",
+    "answer": "Normal brake pressure ranges from 240 to 260 units, with lower values indicating potential brake system issues."
+  },
+  {
+    "question": "What speed limits are used in zones?",
+    "answer": "Zone speed limits range from 0.5 (inactive areas) to 3.0 units (active zones), with restricted areas typically at 1.5."
+  },
+  {
+    "question": "How often should cranes be serviced?",
+    "answer": "Based on sample data, cranes are typically serviced monthly or quarterly, with the last_service and last_maintenance dates tracking service history."
+  },
+  {
+    "question": "What makes an error high severity?",
+    "answer": "Errors are marked high severity when they significantly impact safety or operations, like TEMP_HIGH or BRAKE_WEAR warnings."
+  },
+  {
+    "question": "What makes an error critical severity?",
+    "answer": "Critical severity errors pose immediate danger, such as OVERLOAD_CRITICAL where the crane capacity is significantly exceeded."
+  },
+  {
+    "question": "What is TEMP_HIGH error?",
+    "answer": "TEMP_HIGH error indicates temperature has exceeded safety limits, requiring immediate cooling or shutdown to prevent damage."
+  },
+  {
+    "question": "What is VIBRATION_WARN error?",
+    "answer": "VIBRATION_WARN error indicates unusual vibration patterns detected that may signal bearing failure, misalignment, or structural issues."
+  },
+  {
+    "question": "What is OVERLOAD_CRITICAL error?",
+    "answer": "OVERLOAD_CRITICAL error means the crane is lifting more than its rated capacity, posing serious safety risks."
+  },
+  {
+    "question": "What is COMM_LOST error?",
+    "answer": "COMM_LOST error indicates communication with a sensor or device has been lost, preventing data collection."
+  },
+  {
+    "question": "What is BRAKE_WEAR error?",
+    "answer": "BRAKE_WEAR error signals that brake components have reached critical wear levels and need immediate replacement."
+  },
+  {
+    "question": "What is a Tower Crane?",
+    "answer": "A Tower Crane (like Liebherr 200HC) is a tall fixed crane used in construction for lifting heavy materials to great heights."
+  },
+  {
+    "question": "What is a Gantry Crane?",
+    "answer": "A Gantry Crane (like Konecranes GT) is a crane with legs that straddle a work area, commonly used in warehouses and shipyards."
+  },
+  {
+    "question": "What is a Mobile Crane?",
+    "answer": "A Mobile Crane (like Tadano 250T) is a crane mounted on wheels or tracks, allowing it to move between job sites."
+  },
+  {
+    "question": "What is an Overhead Crane?",
+    "answer": "An Overhead Crane (like Demag 100T) runs on elevated rails and is used in factories and assembly lines for material handling."
+  },
+  {
+    "question": "What locations are monitored in the system?",
+    "answer": "Locations include Construction Site North, Warehouse South, Loading Bay East, Assembly Line West, and various control rooms."
+  },
+  {
+    "question": "What is the Control Room?",
+    "answer": "The Control Room is a centralized location where operators monitor all crane operations and system data in real-time."
+  },
+  {
+    "question": "What devices are typically active?",
+    "answer": "Typically active devices include temperature sensors, load cells, brake controllers, and power monitors."
+  },
+  {
+    "question": "What causes a device error status?",
+    "answer": "Device error status occurs when sensors malfunction, lose calibration, or experience communication failures."
+  },
+  {
+    "question": "What is a Load Cell?",
+    "answer": "A Load Cell is a sensor that measures the weight being lifted by converting mechanical force into electrical signals."
+  },
+  {
+    "question": "What is a Vibration Monitor?",
+    "answer": "A Vibration Monitor is a sensor that detects and measures oscillations in crane components to identify mechanical issues."
+  },
+  {
+    "question": "What is a Brake Controller?",
+    "answer": "A Brake Controller is a device that manages brake engagement and monitors brake system performance and wear."
+  },
+  {
+    "question": "What is a Power Monitor?",
+    "answer": "A Power Monitor tracks electrical consumption, voltage, current, and efficiency of crane operations."
+  },
+  {
+    "question": "What is a Temperature Sensor?",
+    "answer": "A Temperature Sensor measures heat levels in critical components to prevent overheating and equipment damage."
+  },
+  {
+    "question": "Why is IP address important for gateways?",
+    "answer": "IP addresses allow network identification and communication with IoT gateways for data transmission and remote management."
+  },
+  {
+    "question": "What happens when a gateway goes offline?",
+    "answer": "When a gateway goes offline, connected devices lose communication with the central system, preventing data collection and monitoring."
+  },
+  {
+    "question": "What is preventive maintenance?",
+    "answer": "Preventive maintenance involves scheduled servicing based on usage and time to prevent failures before they occur."
+  },
+  {
+    "question": "How does Crane IQ help with maintenance?",
+    "answer": "Crane IQ tracks last_service dates, monitors wear levels, and generates alerts when components need maintenance or replacement."
+  },
+  {
+    "question": "What role can generate reports?",
+    "answer": "Admins and operators can typically generate reports, while viewers have read-only access to existing reports."
+  },
+  {
+    "question": "What is the difference between admin and operator?",
+    "answer": "Admins have full system access including user management, while operators manage daily crane operations and maintenance tasks."
+  },
+  {
+    "question": "What can viewers do in Crane IQ?",
+    "answer": "Viewers have read-only access to monitor crane data, view reports, and observe system status without making changes."
+  },
+  {
+    "question": "How many tables are in Crane IQ database?",
+    "answer": "Crane IQ has 13 main tables: load_readings, vibration_data, energy_usage, temperature_data, brake_status, zone_locations, error_logs, reports, data_exports, machines, iot_gateways, devices, and app_users."
+  },
+  {
+    "question": "What is the monitoring category?",
+    "answer": "The monitoring category includes tables for load, vibration, energy, temperature, brake status, and zone location tracking."
+  },
+  {
+    "question": "What is the management category?",
+    "answer": "The management category includes error logs, reports, and data exports for system administration and analysis."
+  },
+  {
+    "question": "What is the settings category?",
+    "answer": "The settings category includes machines, IoT gateways, devices, and app users for system configuration."
+  },
+  {
+    "question": "How does Crane IQ ensure data security?",
+    "answer": "Crane IQ uses Row Level Security (RLS) with policies that allow public read access but restrict write operations to authenticated users."
+  },
+  {
+    "question": "What is the benefit of using Flutter?",
+    "answer": "Flutter enables cross-platform development, allowing Crane IQ to run on iOS, Android, web, and desktop from a single codebase."
+  },
+  {
+    "question": "Why use Groq API?",
+    "answer": "Groq API provides fast inference for Llama 3 model, enabling responsive AI-powered chatbot interactions and intelligent system features."
+  },
+  {
+    "question": "What is prompt engineering?",
+    "answer": "Prompt engineering involves crafting effective instructions and examples to guide AI models in generating accurate and helpful responses."
+  },
+  {
+    "question": "Why use JSON for training data?",
+    "answer": "JSON format is structured, easy to parse, widely supported, and ideal for storing question-answer pairs for chatbot training."
+  },
+  {
+    "question": "What is VSCode used for?",
+    "answer": "VSCode (Visual Studio Code) is used as the development environment for writing, testing, and tuning the chatbot code."
+  },
+  {
+    "question": "Can Crane IQ work offline?",
+    "answer": "Crane IQ requires internet connectivity for real-time monitoring and AI features, though some data may be cached locally."
+  },
+  {
+    "question": "How is real-time data handled?",
+    "answer": "Real-time data is collected from IoT sensors via gateways, transmitted to the database, and displayed in the Flutter app with minimal latency."
+  },
+  {
+    "question": "What happens during a communication failure?",
+    "answer": "Communication failures trigger COMM_LOST errors, are logged in error_logs table, and alert operators to check connectivity."
+  },
+  {
+    "question": "How are coordinates used in zone control?",
+    "answer": "Coordinates define 3D boundaries of zones, allowing the system to track crane position and enforce speed limits and restrictions."
+  },
+  {
+    "question": "What is the purpose of crane_id field?",
+    "answer": "The crane_id field links all monitoring data to specific cranes, enabling individual crane tracking and analysis."
+  },
+  {
+    "question": "Can multiple cranes be monitored simultaneously?",
+    "answer": "Yes, Crane IQ supports monitoring multiple cranes simultaneously by using unique crane_id values for each machine."
+  },
+  {
+    "question": "What is the benefit of timestamp fields?",
+    "answer": "Timestamp fields enable historical analysis, trend identification, and time-series visualization of crane performance data."
+  },
+  {
+    "question": "How are reports downloaded?",
+    "answer": "Reports are accessed via the download_url stored in the reports table after generation is complete."
+  },
+  {
+    "question": "What determines export format selection?",
+    "answer": "Users choose export format (CSV, JSON, or PDF) based on their needs: CSV for spreadsheets, JSON for programming, PDF for documentation."
+  },
+  {
+    "question": "Why track last_seen for gateways?",
+    "answer": "The last_seen timestamp helps identify disconnected gateways and measure network reliability."
+  },
+  {
+    "question": "What causes a gateway maintenance status?",
+    "answer": "Gateway maintenance status is set when the device is being updated, repaired, or undergoing scheduled service."
+  },
+  {
+    "question": "How is machine location used?",
+    "answer": "Machine location helps operators identify where equipment is deployed and coordinate maintenance or operational activities."
+  },
+  {
+    "question": "What is installed_date used for?",
+    "answer": "Installed_date tracks when equipment was put into service, helping calculate age and schedule replacement."
+  },
+  {
+    "question": "Why monitor humidity levels?",
+    "answer": "Humidity monitoring prevents condensation-related electrical issues and tracks environmental conditions affecting equipment."
+  },
+  {
+    "question": "What causes high temperature warnings?",
+    "answer": "High temperature warnings result from excessive friction, electrical resistance, overloading, or inadequate cooling."
+  },
+  {
+    "question": "How is brake pressure monitored?",
+    "answer": "Brake pressure is measured by sensors in the hydraulic or pneumatic brake system and compared to normal operating ranges."
+  },
+  {
+    "question": "What indicates brake maintenance is needed?",
+    "answer": "Brake maintenance is needed when wear_level exceeds 45%, pressure drops below normal range, or the system detects performance degradation."
+  },
+  {
+    "question": "How does Groq API improve chatbot performance?",
+    "answer": "Groq API provides ultra-fast inference speeds for Llama 3, enabling near-instantaneous responses and smooth conversational experiences in Crane IQ."
+  },
+  {
+    "question": "What SQL command creates a new table?",
+    "answer": "CREATE TABLE IF NOT EXISTS creates a new database table with specified columns, data types, and constraints if the table doesn't already exist."
+  },
+  {
+    "question": "How are safety thresholds configured?",
+    "answer": "Safety thresholds are defined using CHECK constraints and status enums in the database, with specific values for load capacity, temperature, vibration, and wear levels."
+  },
+  {
+    "question": "What is the purpose of the id field?",
+    "answer": "The id field serves as the unique primary key for each table row, generated automatically using gen_random_uuid() function."
+  },
+  {
+    "question": "How does zone restriction work?",
+    "answer": "Zone restriction prevents crane access to specific areas by setting zone status to 'restricted' and enforcing movement limits based on coordinates."
+  },
+  {
+    "question": "What triggers an overload warning?",
+    "answer": "An overload warning is triggered when load_weight approaches or exceeds the crane's rated capacity, typically above 95-100%."
+  },
+  {
+    "question": "How is current measured in energy monitoring?",
+    "answer": "Current is measured in amperes using power monitors and calculated from power consumption and voltage readings."
+  },
+  {
+    "question": "What is axis in vibration monitoring?",
+    "answer": "Axis refers to the direction of vibration measurement: x for lateral movement, y for longitudinal movement, and z for vertical movement."
+  },
+  {
+    "question": "How often is sensor data collected?",
+    "answer": "Sensor data is collected continuously in real-time, with timestamps recorded for each reading to enable historical tracking and analysis."
+  },
+  {
+    "question": "What is the machine_id format?",
+    "answer": "Machine_id follows the format MACH-XXX where XXX is a unique sequential number identifying each crane or equipment unit."
+  },
+  {
+    "question": "What is gateway_id format?",
+    "answer": "Gateway_id follows the format GW-XXX where XXX is a unique number identifying each IoT gateway device in the network."
+  },
+  {
+    "question": "What is device_id format?",
+    "answer": "Device_id follows the format DEV-XXX where XXX is a unique number identifying each sensor, controller, or monitor in the system."
+  },
+  {
+    "question": "How does partial brake position occur?",
+    "answer": "Partial brake position occurs during controlled operations where brakes are neither fully engaged nor fully released, providing gradual stopping."
+  },
+  {
+    "question": "What causes device inactive status?",
+    "answer": "Device inactive status occurs when devices are manually disabled, powered off, or temporarily removed from operation."
+  },
+  {
+    "question": "How is efficiency percentage calculated?",
+    "answer": "Efficiency percentage is calculated as (useful output power / total input power) × 100, showing how effectively energy is converted to work."
+  },
+  {
+    "question": "What is the Loading Bay area?",
+    "answer": "Loading Bay is a designated zone where materials are loaded onto or unloaded from cranes, typically with specific speed limits and safety protocols."
+  },
+  {
+    "question": "What is the Construction Area zone?",
+    "answer": "Construction Area is a work zone with active building operations, usually marked as restricted with reduced speed limits for safety."
+  },
+  {
+    "question": "What is the Storage Zone?",
+    "answer": "Storage Zone is an area where materials are temporarily stored, requiring crane access for material handling and inventory management."
+  },
+  {
+    "question": "What is the Maintenance Area?",
+    "answer": "Maintenance Area is a designated zone for equipment service and repair, often marked inactive during maintenance operations."
+  },
+  {
+    "question": "What is Transfer Path?",
+    "answer": "Transfer Path is a designated route for crane movement between zones, with specific speed limits to ensure safe material transport."
+  },
+  {
+    "question": "How do authentication policies work?",
+    "answer": "Authentication policies use auth.role() to verify users are logged in before allowing INSERT, UPDATE, or DELETE operations on protected tables."
+  },
+  {
+    "question": "What is the benefit of JSONB over JSON?",
+    "answer": "JSONB stores data in binary format, enabling faster queries, indexing support, and more efficient storage compared to plain JSON."
+  },
+  {
+    "question": "How are duplicate policies prevented?",
+    "answer": "DROP POLICY IF EXISTS removes old policies before creating new ones, preventing duplicate policy errors during database updates."
+  },
+  {
+    "question": "What is the Motor Area location?",
+    "answer": "Motor Area is where crane drive motors are located, requiring temperature monitoring due to heat generation during operation."
+  },
+  {
+    "question": "What is the Gear Box location?",
+    "answer": "Gear Box is the mechanical transmission system location, monitored for temperature to detect friction and lubrication issues."
+  },
+  {
+    "question": "What is the Hydraulic System location?",
+    "answer": "Hydraulic System is where fluid power components are located, monitored for temperature to prevent fluid breakdown and seal damage."
+  },
+  {
+    "question": "What is the Brake System location?",
+    "answer": "Brake System is where braking components are housed, critically monitored for temperature due to friction heat during stopping operations."
+  },
+  {
+    "question": "How does Flutter integrate with Supabase?",
+    "answer": "Flutter uses the Supabase client library to connect to PostgreSQL database, authenticate users, and perform real-time data operations."
+  },
+  {
+    "question": "What is Llama 3 model?",
+    "answer": "Llama 3 is Meta's large language model used in Crane IQ for natural language understanding, conversational AI, and intelligent query responses."
+  },
+  {
+    "question": "Why use Llama 3 instead of other models?",
+    "answer": "Llama 3 via Groq API offers excellent performance, fast inference, good accuracy, and is optimized for conversational applications like chatbots."
+  },
+  {
+    "question": "How is chatbot training data formatted?",
+    "answer": "Training data is formatted as JSON array with question-answer pairs, enabling the chatbot to learn appropriate responses through prompt engineering."
+  },
+  {
+    "question": "What is the pro_plan subscription?",
+    "answer": "Pro_plan is the subscription tier in Crane IQ that provides full access to all monitoring, management, and reporting features."
+  },
+  {
+    "question": "Can user roles be changed after creation?",
+    "answer": "Yes, user roles can be updated through the app_users table by authenticated administrators with proper permissions."
+  },
+  {
+    "question": "How are error messages generated?",
+    "answer": "Error messages are generated automatically by the system when sensor readings exceed thresholds or when component failures are detected."
+  },
+  {
+    "question": "What happens when an error is resolved?",
+    "answer": "When resolved, the error_logs entry is updated with resolved=true, creating an audit trail of issues and their resolution."
+  },
+  {
+    "question": "How long is historical data retained?",
+    "answer": "Historical data retention depends on system configuration, with timestamps enabling queries for any time period and data archival policies."
+  },
+  {
+    "question": "What is data export used for?",
+    "answer": "Data exports allow users to extract crane monitoring data for external analysis, reporting, compliance documentation, or backup purposes."
+  },
+  {
+    "question": "How are CSV exports structured?",
+    "answer": "CSV exports contain comma-separated values with headers, making data easy to import into Excel or other spreadsheet applications."
+  },
+  {
+    "question": "How are JSON exports structured?",
+    "answer": "JSON exports provide hierarchical data structure ideal for programming, API integration, and advanced data processing applications."
+  },
+  {
+    "question": "How are PDF reports formatted?",
+    "answer": "PDF reports include formatted tables, charts, and summaries, providing professional documentation for presentations and record-keeping."
+  },
+  {
+    "question": "What triggers report generation?",
+    "answer": "Reports are generated manually by authorized users who specify the report type, date range, and data to be included."
+  },
+  {
+    "question": "Can reports be scheduled automatically?",
+    "answer": "While the current schema supports manual generation, automated scheduling can be implemented through backend jobs or triggers."
+  },
+  {
+    "question": "How is data_range specified in reports?",
+    "answer": "Data_range is stored as JSONB containing start_date and end_date fields that define the time period covered by the report."
+  },
+  {
+    "question": "What determines export status changes?",
+    "answer": "Export status changes from pending to processing when generation starts, then to completed or failed based on the outcome."
+  },
+  {
+    "question": "How are failed exports handled?",
+    "answer": "Failed exports are logged with status='failed', allowing users to retry and administrators to investigate the failure cause."
+  },
+  {
+    "question": "What is sensor calibration?",
+    "answer": "Sensor calibration ensures accurate measurements by comparing sensor readings to known standards and adjusting for drift or errors."
+  },
+  {
+    "question": "How often should sensors be calibrated?",
+    "answer": "Sensors should be calibrated regularly based on manufacturer recommendations, typically quarterly or when readings seem inconsistent."
+  },
+  {
+    "question": "What causes sensor communication loss?",
+    "answer": "Communication loss occurs due to network issues, power failures, physical damage, or gateway malfunctions disrupting data transmission."
+  },
+  {
+    "question": "How is sensor data validated?",
+    "answer": "Sensor data is validated by checking values against expected ranges, detecting anomalies, and comparing with historical patterns."
+  },
+  {
+    "question": "What is predictive maintenance?",
+    "answer": "Predictive maintenance uses sensor data trends to forecast component failures before they occur, enabling proactive service scheduling."
+  },
+  {
+    "question": "How does Crane IQ support predictive maintenance?",
+    "answer": "Crane IQ tracks wear levels, performance degradation, and usage patterns to predict when components will need maintenance or replacement."
+  },
+  {
+    "question": "What is condition-based monitoring?",
+    "answer": "Condition-based monitoring continuously assesses equipment health through real-time sensor data, triggering maintenance only when needed."
+  },
+  {
+    "question": "How are maintenance schedules optimized?",
+    "answer": "Maintenance schedules are optimized by analyzing historical data, wear patterns, and component lifecycles to minimize downtime and costs."
+  },
+  {
+    "question": "What safety features does Crane IQ provide?",
+    "answer": "Crane IQ provides overload protection, zone restrictions, brake monitoring, temperature alerts, and vibration warnings for comprehensive safety."
+  },
+  {
+    "question": "How does overload protection work?",
+    "answer": "Overload protection monitors load weight against capacity and triggers critical alerts when limits are exceeded, preventing structural failure."
+  },
+  {
+    "question": "What is geofencing in zone control?",
+    "answer": "Geofencing uses coordinate boundaries to restrict crane movement to authorized zones, automatically enforcing speed limits and access rules."
+  },
+  {
+    "question": "How are speed limits enforced?",
+    "answer": "Speed limits are enforced by monitoring crane velocity within each zone and alerting operators when limits are exceeded."
+  },
+  {
+    "question": "What is emergency shutdown procedure?",
+    "answer": "Emergency shutdown occurs when critical errors are detected, immediately stopping crane operations to prevent accidents or equipment damage."
+  },
+  {
+    "question": "How are operators alerted to issues?",
+    "answer": "Operators receive real-time alerts through the Flutter app via push notifications, visual indicators, and audible warnings for critical issues."
+  },
+  {
+    "question": "What is the alert priority system?",
+    "answer": "Alert priority is based on error severity: low for informational, medium for warnings, high for problems, and critical for immediate dangers."
+  },
+  {
+    "question": "How is alert fatigue prevented?",
+    "answer": "Alert fatigue is prevented by setting appropriate thresholds, grouping similar alerts, and focusing on actionable warnings rather than noise."
+  },
+  {
+    "question": "What is data visualization in Crane IQ?",
+    "answer": "Data visualization presents sensor readings through charts, graphs, and dashboards, making complex data easy to understand and act upon."
+  },
+  {
+    "question": "What types of charts are used?",
+    "answer": "Common charts include line graphs for trends, bar charts for comparisons, gauges for current values, and heat maps for spatial data."
+  },
+  {
+    "question": "How is real-time data displayed?",
+    "answer": "Real-time data is displayed with automatic updates, live streaming values, and visual indicators showing current status and recent changes."
+  },
+  {
+    "question": "What is historical trend analysis?",
+    "answer": "Historical trend analysis examines past data patterns to identify long-term changes, seasonal variations, and performance degradation over time."
+  },
+  {
+    "question": "How are performance metrics calculated?",
+    "answer": "Performance metrics aggregate sensor data to calculate averages, maximums, minimums, and statistical measures for evaluation and reporting."
+  },
+  {
+    "question": "What is uptime tracking?",
+    "answer": "Uptime tracking monitors how long cranes operate without failures, calculating availability percentages for reliability assessment."
+  },
+  {
+    "question": "What is downtime analysis?",
+    "answer": "Downtime analysis identifies when and why cranes are not operational, helping reduce lost productivity and improve maintenance planning."
+  },
+  {
+    "question": "How is crane utilization measured?",
+    "answer": "Crane utilization is measured by comparing active operation time to total available time, showing efficiency of equipment usage."
+  },
+  {
+    "question": "What is load cycle counting?",
+    "answer": "Load cycle counting tracks the number of lift operations, helping predict component wear and schedule maintenance based on usage."
+  },
+  {
+    "question": "How is energy efficiency improved?",
+    "answer": "Energy efficiency is improved by identifying high consumption periods, optimizing operations, and addressing equipment inefficiencies detected by monitoring."
+  },
+  {
+    "question": "What causes power consumption spikes?",
+    "answer": "Power consumption spikes occur during heavy loads, rapid acceleration, simultaneous operations, or when equipment resistance increases due to wear."
+  },
+  {
+    "question": "How is voltage stability monitored?",
+    "answer": "Voltage stability is monitored by tracking voltage levels over time and detecting fluctuations that could affect equipment performance or cause damage."
+  },
+  {
+    "question": "What indicates motor problems?",
+    "answer": "Motor problems are indicated by increased current draw, elevated temperatures, unusual vibrations, or reduced efficiency in power consumption data."
+  },
+  {
+    "question": "How is bearing wear detected?",
+    "answer": "Bearing wear is detected through increased vibration frequency, elevated temperatures, and changes in vibration patterns on specific axes."
+  },
+  {
+    "question": "What causes misalignment?",
+    "answer": "Misalignment results from installation errors, foundation settling, thermal expansion, or component wear, detected through vibration analysis."
+  },
+  {
+    "question": "How is structural integrity monitored?",
+    "answer": "Structural integrity is monitored through vibration patterns, load distribution, deformation measurements, and stress indicators from sensor data."
+  },
+  {
+    "question": "What is resonance frequency?",
+    "answer": "Resonance frequency is the natural vibration rate of structures that, when excited, can cause amplified oscillations and potential damage."
+  },
+  {
+    "question": "How are resonance issues prevented?",
+    "answer": "Resonance issues are prevented by operating away from critical frequencies, using damping systems, and detecting problematic vibration patterns early."
+  },
+  {
+    "question": "What is load distribution analysis?",
+    "answer": "Load distribution analysis examines how weight is spread across crane components, ensuring balanced loading and preventing stress concentrations."
+  },
+  {
+    "question": "How is structural fatigue tracked?",
+    "answer": "Structural fatigue is tracked through load cycle counting, stress level monitoring, and cumulative damage calculations based on usage history."
+  },
+  {
+    "question": "What is thermal expansion monitoring?",
+    "answer": "Thermal expansion monitoring tracks dimensional changes in components due to temperature variations that could affect alignment and clearances."
+  },
+  {
+    "question": "How does humidity affect operations?",
+    "answer": "High humidity can cause electrical issues, corrosion, condensation in controls, and reduced insulation effectiveness in electrical systems."
+  },
+  {
+    "question": "What is corrosion monitoring?",
+    "answer": "Corrosion monitoring tracks environmental conditions and component degradation to prevent structural weakness and equipment failure."
+  },
+  {
+    "question": "How are lubrication needs determined?",
+    "answer": "Lubrication needs are determined by monitoring friction indicators, temperature rises, vibration changes, and scheduled maintenance intervals."
+  },
+  {
+    "question": "What causes hydraulic system failures?",
+    "answer": "Hydraulic failures result from fluid contamination, seal degradation, pressure loss, overheating, or component wear detected through monitoring."
+  },
+  {
+    "question": "How is hydraulic pressure monitored?",
+    "answer": "Hydraulic pressure is monitored through dedicated sensors that track system pressure, detect leaks, and ensure adequate force for operations."
+  },
+  {
+    "question": "What indicates seal degradation?",
+    "answer": "Seal degradation is indicated by pressure drops, fluid leaks, increased contamination, and temperature changes in hydraulic systems."
+  },
+  {
+    "question": "How is fluid contamination detected?",
+    "answer": "Fluid contamination is detected through particle counters, viscosity changes, color analysis, and performance degradation in hydraulic systems."
+  },
+  {
+    "question": "What is brake fade?",
+    "answer": "Brake fade is reduced braking effectiveness due to overheating, detected by temperature sensors and pressure measurements in brake systems."
+  },
+  {
+    "question": "How are brake pads monitored?",
+    "answer": "Brake pads are monitored through wear level sensors, pressure measurements, and temperature tracking to schedule replacement before failure."
+  },
+  {
+    "question": "What causes brake system overheating?",
+    "answer": "Brake overheating occurs from excessive use, heavy loads, rapid stopping, or cooling system failures detected by temperature monitoring."
+  },
+  {
+    "question": "How is emergency braking tracked?",
+    "answer": "Emergency braking events are logged with timestamp, load, speed, and conditions to analyze system stress and maintenance needs."
+  },
+  {
+    "question": "What is anti-collision detection?",
+    "answer": "Anti-collision detection uses zone coordinates and crane positions to prevent cranes from operating in conflicting spaces simultaneously."
+  },
+  {
+    "question": "How does multi-crane coordination work?",
+    "answer": "Multi-crane coordination tracks positions and movements of all cranes to prevent collisions and optimize workflow in shared spaces."
+  },
+  {
+    "question": "What is load sway monitoring?",
+    "answer": "Load sway monitoring detects pendulum motion of suspended loads that could cause instability, collisions, or safety hazards."
+  },
+  {
+    "question": "How is wind effect monitored?",
+    "answer": "Wind effects are monitored through increased sway, structural stress, and stability indicators that may require operation suspension."
+  },
+  {
+    "question": "What are weather-based restrictions?",
+    "answer": "Weather-based restrictions limit crane operations during high winds, storms, or extreme temperatures to ensure safety and prevent damage."
+  },
+  {
+    "question": "How is operator training tracked?",
+    "answer": "Operator training is tracked through user profiles, certification dates, and access permissions ensuring only qualified personnel operate equipment."
+  },
+  {
+    "question": "What is access control in Crane IQ?",
+    "answer": "Access control uses role-based permissions to restrict features and data based on user roles: admin, operator, or viewer."
+  },
+  {
+    "question": "How are user actions logged?",
+    "answer": "User actions are logged with timestamps and user identification in an audit trail for accountability and security analysis."
+  },
+  {
+    "question": "What is audit trail functionality?",
+    "answer": "Audit trail records all system changes, user actions, and data modifications for compliance, troubleshooting, and security purposes."
+  },
+  {
+    "question": "How is data integrity ensured?",
+    "answer": "Data integrity is ensured through database constraints, validation rules, checksums, and regular backups preventing corruption or loss."
+  },
+  {
+    "question": "What is backup and recovery?",
+    "answer": "Backup and recovery systems create regular data copies and enable restoration after failures, ensuring business continuity."
+  },
+  {
+    "question": "How often should backups occur?",
+    "answer": "Backups should occur frequently based on data criticality, typically daily for full backups and continuously for real-time replication."
+  },
+  {
+    "question": "What is disaster recovery planning?",
+    "answer": "Disaster recovery planning defines procedures and systems for restoring operations after catastrophic failures, data loss, or system outages."
+  },
+  {
+    "question": "How is system availability measured?",
+    "answer": "System availability is measured as percentage of uptime, typically targeting 99.9% or higher for critical industrial monitoring systems."
+  },
+  {
+    "question": "What is load testing?",
+    "answer": "Load testing simulates high user volumes and data rates to ensure the system performs adequately under peak conditions."
+  },
+  {
+    "question": "How is system performance optimized?",
+    "answer": "Performance is optimized through database indexing, query optimization, caching, efficient algorithms, and resource management."
+  },
+  {
+    "question": "What is query optimization?",
+    "answer": "Query optimization improves database performance by using indexes, reducing joins, filtering early, and structuring queries efficiently."
+  },
+  {
+    "question": "How are database indexes used?",
+    "answer": "Database indexes create sorted lookup structures on columns, dramatically speeding up queries that filter or sort by those columns."
+  },
+  {
+    "question": "What is caching in Crane IQ?",
+    "answer": "Caching stores frequently accessed data in fast memory, reducing database load and improving response times for common queries."
+  },
+  {
+    "question": "How is network latency handled?",
+    "answer": "Network latency is handled through local caching, data compression, efficient protocols, and optimized data transfer strategies."
+  },
+  {
+    "question": "What is API rate limiting?",
+    "answer": "API rate limiting restricts the number of requests per time period to prevent overload and ensure fair resource allocation."
+  },
+  {
+    "question": "How does Groq API handle requests?",
+    "answer": "Groq API processes requests through specialized hardware optimized for AI inference, delivering fast responses for Llama 3 model queries."
+  },
+  {
+    "question": "What is token limit in AI models?",
+    "answer": "Token limit is the maximum input/output length for AI models, affecting how much context and response the model can process."
+  },
+  {
+    "question": "How is context maintained in chatbot?",
+    "answer": "Context is maintained by including conversation history in each request, allowing the chatbot to understand references and maintain coherent dialogue."
+  },
+  {
+    "question": "What is conversation history management?",
+    "answer": "Conversation history management stores and retrieves past messages to provide context for ongoing discussions and personalized responses."
+  },
+  {
+    "question": "How are chatbot responses generated?",
+    "answer": "Responses are generated by sending user questions with context to Llama 3 via Groq API, which returns intelligent answers based on training data."
+  },
+  {
+    "question": "What is natural language understanding?",
+    "answer": "Natural language understanding enables the chatbot to comprehend user intent, extract meaning, and respond appropriately to varied phrasings."
+  },
+  {
+    "question": "How does intent recognition work?",
+    "answer": "Intent recognition analyzes user input to determine what action or information they seek, routing queries to appropriate system functions."
+  },
+  {
+    "question": "What is entity extraction?",
+    "answer": "Entity extraction identifies specific data elements in user queries like crane IDs, dates, or values to execute precise operations."
+  },
+  {
+    "question": "How are ambiguous queries handled?",
+    "answer": "Ambiguous queries are handled by asking clarifying questions, providing multiple options, or making intelligent assumptions based on context."
+  },
+  {
+    "question": "What is sentiment analysis in chatbot?",
+    "answer": "Sentiment analysis detects user emotions and frustration levels, allowing the chatbot to adjust responses and escalate to human support when needed."
+  },
+  {
+    "question": "How is chatbot accuracy improved?",
+    "answer": "Accuracy improves through prompt engineering, quality training data, user feedback, continuous testing, and model fine-tuning."
+  },
+  {
+    "question": "What is A/B testing for chatbots?",
+    "answer": "A/B testing compares different response strategies to identify which approaches provide better user satisfaction and task completion."
+  },
+  {
+    "question": "How is user feedback collected?",
+    "answer": "User feedback is collected through ratings, thumbs up/down buttons, surveys, and analysis of conversation success rates."
+  },
+  {
+    "question": "What metrics measure chatbot performance?",
+    "answer": "Key metrics include response accuracy, resolution rate, response time, user satisfaction scores, and conversation completion rates."
+  },
+  {
+    "question": "How is chatbot training data validated?",
+    "answer": "Training data is validated by checking for accuracy, relevance, completeness, consistency, and testing responses against expected outcomes."
+  },
+  {
+    "question": "What is few-shot learning?",
+    "answer": "Few-shot learning enables AI models to learn new tasks from just a few examples, useful for adapting chatbots to specific domains."
+  },
+  {
+    "question": "How does prompt engineering work?",
+    "answer": "Prompt engineering crafts input instructions that guide AI models to generate desired outputs, improving response quality and consistency."
+  },
+  {
+    "question": "What makes a good training question?",
+    "answer": "Good training questions are clear, varied, representative of real user queries, and cover all important system features and use cases."
+  },
+  {
+    "question": "What makes a good training answer?",
+    "answer": "Good training answers are accurate, concise, helpful, appropriately detailed, and consistent with system behavior and capabilities."
+  },
+  {
+    "question": "How many Q&A pairs are needed?",
+    "answer": "The number varies by complexity, but 700-1000 diverse Q&A pairs provide comprehensive coverage for industrial monitoring chatbots like Crane IQ."
+  },
+  {
+    "question": "How is training data organized?",
+    "answer": "Training data is organized by categories, topics, or features to ensure balanced coverage and easier maintenance of the knowledge base."
+  },
+  {
+    "question": "What is data augmentation for chatbots?",
+    "answer": "Data augmentation creates variations of existing Q&A pairs with different phrasings to improve the chatbot's ability to handle diverse inputs."
+  },
+  {
+    "question": "How are synonyms handled?",
+    "answer": "Synonyms are handled by including variations in training data and using AI's language understanding to recognize equivalent terms."
+  },
+  {
+    "question": "What is context-aware response?",
+    "answer": "Context-aware responses consider conversation history, user role, system state, and previous queries to provide relevant, personalized answers."
+  },
+  {
+    "question": "How does multi-turn conversation work?",
+    "answer": "Multi-turn conversation maintains state across messages, allowing users to ask follow-up questions without repeating context."
+  },
+  {
+    "question": "What is conversational flow management?",
+    "answer": "Conversational flow management guides users through complex tasks by breaking them into steps and maintaining progress across messages."
+  },
+  {
+    "question": "How are errors in user input handled?",
+    "answer": "Input errors are handled gracefully by suggesting corrections, asking for clarification, or providing examples of valid formats."
+  },
+  {
+    "question": "What is graceful degradation?",
+    "answer": "Graceful degradation ensures the chatbot provides helpful responses even when it can't fully understand or complete a request."
+  },
+  {
+    "question": "How are out-of-scope questions handled?",
+    "answer": "Out-of-scope questions are acknowledged politely with explanations of limitations and suggestions for alternative resources or support."
+  },
+  {
+    "question": "What is escalation to human support?",
+    "answer": "Escalation transfers complex issues, frustrated users, or out-of-scope requests to human operators for personalized assistance."
+  },
+  {
+    "question": "How is chatbot availability ensured?",
+    "answer": "Availability is ensured through reliable hosting, API redundancy, error handling, fallback responses, and monitoring for failures."
+  },
+  {
+    "question": "What is response time optimization?",
+    "answer": "Response time optimization minimizes latency through efficient code, API selection, caching, and parallel processing where possible."
+  },
+  {
+    "question": "How is Groq API performance measured?",
+    "answer": "Groq API performance is measured by inference speed, throughput, latency, reliability, and quality of generated responses."
+  },
+  {
+    "question": "What makes Groq API fast?",
+    "answer": "Groq uses custom AI accelerator chips specifically designed for neural network inference, providing significantly faster processing than general GPUs."
+  },
+  {
+    "question": "How is API security implemented?",
+    "answer": "API security uses authentication keys, encrypted connections, rate limiting, input validation, and secure token storage."
+  },
+  {
+    "question": "What is API key management?",
+    "answer": "API key management involves secure storage, rotation, access control, monitoring usage, and revoking compromised keys."
+  },
+  {
+    "question": "How are API keys stored securely?",
+    "answer": "API keys are stored using environment variables, secure key vaults, or encrypted configuration files, never in source code."
+  },
+  {
+    "question": "What is environment variable configuration?",
+    "answer": "Environment variables store sensitive configuration like API keys outside the code, allowing different values per deployment environment."
+  },
+  {
+    "question": "How is Flutter app structured?",
+    "answer": "Flutter apps use widget trees, state management, routing, and services to organize UI components, business logic, and data access."
+  },
+  {
+    "question": "What is state management in Flutter?",
+    "answer": "State management handles data flow and UI updates, using approaches like Provider, Riverpod, Bloc, or GetX to coordinate app state."
+  },
+  {
+    "question": "What are Flutter widgets?",
+    "answer": "Widgets are building blocks of Flutter UI, describing what the interface should look like based on current configuration and state."
+  },
+  {
+    "question": "What is StatefulWidget vs StatelessWidget?",
+    "answer": "StatefulWidget can change over time with mutable state, while StatelessWidget is immutable and rebuilds only when input parameters change."
+  },
+  {
+    "question": "How does Flutter rendering work?",
+    "answer": "Flutter renders using its own graphics engine, drawing directly to screen for consistent, high-performance UI across all platforms."
+  },
+  {
+    "question": "What is hot reload in Flutter?",
+    "answer": "Hot reload instantly updates running app code without losing state, enabling rapid development and immediate feedback on changes."
+  },
+  {
+    "question": "How are API calls made in Flutter?",
+    "answer": "API calls use http or dio packages to send requests, handle responses, parse JSON, and update app state with retrieved data."
+  },
+  {
+    "question": "What is async/await in Flutter?",
+    "answer": "Async/await enables non-blocking asynchronous code that waits for operations like API calls without freezing the UI."
+  },
+  {
+    "question": "How is JSON parsed in Flutter?",
+    "answer": "JSON is parsed using dart:convert library's jsonDecode function, converting JSON strings into Dart maps and lists."
+  },
+  {
+    "question": "What is model class in Flutter?",
+    "answer": "Model classes define data structures with properties and methods to deserialize JSON and represent business entities like cranes or sensors."
+  },
+  {
+    "question": "How does Supabase authentication work?",
+    "answer": "Supabase authentication verifies user credentials, manages sessions, generates tokens, and enforces database security policies."
+  },
+  {
+    "question": "What is JWT token?",
+    "answer": "JWT (JSON Web Token) is a secure token containing user identity and claims, used for authenticated API requests in Crane IQ."
+  },
+  {
+    "question": "How are real-time updates implemented?",
+    "answer": "Real-time updates use Supabase subscriptions to listen for database changes and automatically refresh Flutter UI when data updates."
+  },
+  {
+    "question": "What is WebSocket connection?",
+    "answer": "WebSocket provides bidirectional communication channel for real-time data streaming between server and Flutter app."
+  },
+  {
+    "question": "How is data persistence handled locally?",
+    "answer": "Local data persistence uses SharedPreferences for settings, SQLite for complex data, or Hive for efficient offline storage."
+  },
+  {
+    "question": "What is offline-first architecture?",
+    "answer": "Offline-first architecture stores data locally first, syncing with server when available, ensuring app works without constant connectivity."
+  },
+  {
+    "question": "How are push notifications configured?",
+    "answer": "Push notifications use Firebase Cloud Messaging (FCM) integrated with Flutter to send alerts for critical crane events."
+  },
+  {
+    "question": "What triggers push notifications?",
+    "answer": "Critical events like overload, high temperature, communication loss, or brake wear trigger automatic push notifications to operators."
+  },
+  {
+    "question": "How is notification priority determined?",
+    "answer": "Notification priority matches error severity: critical issues show high-priority alerts, while informational messages use lower priority."
+  },
+  {
+    "question": "What is responsive design in Flutter?",
+    "answer": "Responsive design adapts UI layout to different screen sizes and orientations using MediaQuery and flexible layouts."
+  },
+  {
+    "question": "How does Flutter support multiple platforms?",
+    "answer": "Flutter compiles to native code for iOS, Android, web, and desktop from single codebase, with platform-specific adaptations as needed."
+  },
+  {
+    "question": "What is dependency injection?",
+    "answer": "Dependency injection provides objects their dependencies from external sources, improving testability and code maintainability."
+  },
+  {
+    "question": "How are errors handled in Flutter?",
+    "answer": "Errors are handled using try-catch blocks, error boundaries, logging services, and user-friendly error messages in the UI."
+  },
+  {
+    "question": "What is error logging?",
+    "answer": "Error logging captures exceptions, stack traces, and context information to help developers diagnose and fix issues."
+  },
+  {
+    "question": "How is app performance monitored?",
+    "answer": "Performance is monitored through frame rates, load times, memory usage, network latency, and crash analytics tools."
+  },
+  {
+    "question": "What is memory leak detection?",
+    "answer": "Memory leak detection identifies objects not properly released, using profiling tools to find and fix memory management issues."
+  },
+  {
+    "question": "How is battery consumption optimized?",
+    "answer": "Battery optimization reduces background processing, minimizes network calls, and uses efficient rendering to extend device battery life."
+  },
+  {
+    "question": "What is code organization best practice?",
+    "answer": "Best practices include separating UI, business logic, and data layers, using clear naming, and organizing files by feature."
+  },
+  {
+    "question": "What is clean architecture?",
+    "answer": "Clean architecture separates concerns into layers (presentation, domain, data) with clear dependencies, improving maintainability and testability."
+  },
+  {
+    "question": "How is testing implemented?",
+    "answer": "Testing includes unit tests for logic, widget tests for UI components, and integration tests for full feature workflows."
+  },
+  {
+    "question": "What is unit testing?",
+    "answer": "Unit testing validates individual functions and classes in isolation, ensuring each component works correctly independently."
+  },
+  {
+    "question": "What is integration testing?",
+    "answer": "Integration testing verifies multiple components work together correctly, testing complete features and user workflows end-to-end."
+  },
+  {
+    "question": "What is widget testing in Flutter?",
+    "answer": "Widget testing validates UI components by simulating user interactions and verifying correct rendering and behavior."
+  },
+  {
+    "question": "How is code coverage measured?",
+    "answer": "Code coverage measures percentage of code executed by tests, helping identify untested areas that need additional test cases."
+  },
+  {
+    "question": "What is continuous integration?",
+    "answer": "Continuous integration automatically builds, tests, and validates code changes, catching issues early in development process."
+  },
+  {
+    "question": "What is version control?",
+    "answer": "Version control (Git) tracks code changes, enables collaboration, maintains history, and allows rollback to previous versions."
+  },
+  {
+    "question": "How are app updates deployed?",
+    "answer": "Updates are deployed through app stores for mobile, web hosting for web version, ensuring users receive latest features and fixes."
+  },
+  {
+    "question": "What is semantic versioning?",
+    "answer": "Semantic versioning uses MAJOR.MINOR.PATCH format to communicate breaking changes, new features, and bug fixes in releases."
+  },
+  {
+    "question": "How is backward compatibility maintained?",
+    "answer": "Backward compatibility maintains API consistency, gracefully handles old data formats, and provides migration paths for breaking changes."
+  },
+  {
+    "question": "What is database migration?",
+    "answer": "Database migration updates schema structure while preserving existing data, using versioned scripts to evolve database design."
+  },
+  {
+    "question": "How are schema changes managed?",
+    "answer": "Schema changes use migration scripts that run in sequence, allowing controlled evolution of database structure across versions."
+  },
+  {
+    "question": "What is data validation?",
+    "answer": "Data validation ensures input meets requirements using type checks, range limits, format verification, and business rule enforcement."
+  },
+  {
+    "question": "How are input forms validated?",
+    "answer": "Form validation checks required fields, data formats, value ranges, and dependencies, showing clear error messages for invalid input."
+  },
+  {
+    "question": "What is sanitization?",
+    "answer": "Sanitization cleans user input by removing dangerous characters, preventing SQL injection, XSS attacks, and data corruption."
+  },
+  {
+    "question": "How is SQL injection prevented?",
+    "answer": "SQL injection is prevented using parameterized queries, prepared statements, and ORM libraries that escape dangerous characters."
+  },
+  {
+    "question": "What is XSS attack prevention?",
+    "answer": "XSS prevention sanitizes user input, escapes output, validates data types, and uses Content Security Policy headers."
+  },
+  {
+    "question": "How is data encrypted?",
+    "answer": "Data is encrypted using strong algorithms (AES-256) for storage and TLS/SSL for transmission, protecting sensitive information."
+  },
+  {
+    "question": "What is HTTPS?",
+    "answer": "HTTPS encrypts communication between app and server using TLS/SSL, preventing eavesdropping and man-in-the-middle attacks."
+  },
+  {
+    "question": "How are passwords stored?",
+    "answer": "Passwords are hashed using bcrypt or similar algorithms with salt, never stored in plain text, protecting against database breaches."
+  },
+  {
+    "question": "What is two-factor authentication?",
+    "answer": "Two-factor authentication requires second verification method beyond password, significantly improving account security."
+  },
+  {
+    "question": "How is session management implemented?",
+    "answer": "Session management uses secure tokens, expiration times, refresh mechanisms, and server-side validation to maintain authenticated state."
+  },
+  {
+    "question": "What is token refresh mechanism?",
+    "answer": "Token refresh automatically renews expired authentication tokens, maintaining user sessions without requiring re-login."
+  },
+  {
+    "question": "How long do sessions last?",
+    "answer": "Session duration balances security and convenience, typically lasting hours to days, with automatic refresh for active users."
+  },
+  {
+    "question": "What is role-based authorization?",
+    "answer": "Role-based authorization grants permissions based on user roles, ensuring users only access features appropriate to their responsibility."
+  },
+  {
+    "question": "How are permissions checked?",
+    "answer": "Permissions are checked both client-side for UI and server-side for security, verifying user role before allowing operations."
+  },
+  {
+    "question": "What is principle of least privilege?",
+    "answer": "Principle of least privilege grants users minimum permissions needed for their tasks, reducing security risks from compromised accounts."
+  },
+  {
+    "question": "How is audit logging implemented?",
+    "answer": "Audit logging records who did what and when, creating tamper-proof trail for security analysis, compliance, and troubleshooting."
+  },
+  {
+    "question": "What information is in audit logs?",
+    "answer": "Audit logs contain user ID, action performed, timestamp, IP address, affected resources, and operation results."
+  },
+  {
+    "question": "How long are audit logs retained?",
+    "answer": "Audit log retention follows compliance requirements and policies, typically 90 days to several years depending on regulations."
+  },
+  {
+    "question": "What is GDPR compliance?",
+    "answer": "GDPR compliance ensures proper handling of EU citizen data including consent, access rights, deletion requests, and breach notification."
+  },
+  {
+    "question": "How is user data protected?",
+    "answer": "User data is protected through encryption, access controls, anonymization where possible, and compliance with privacy regulations."
+  },
+  {
+    "question": "What is data anonymization?",
+    "answer": "Data anonymization removes personally identifiable information, allowing data analysis while protecting individual privacy."
+  },
+  {
+    "question": "How are data exports anonymized?",
+    "answer": "Exports can remove or hash personal identifiers, aggregate data, or apply differential privacy techniques for research use."
+  },
+  {
+    "question": "What is differential privacy?",
+    "answer": "Differential privacy adds controlled noise to data, enabling useful analysis while mathematically guaranteeing individual privacy protection."
+  },
+  {
+    "question": "How is regulatory compliance ensured?",
+    "answer": "Compliance is ensured through policy documentation, regular audits, security controls, staff training, and working with legal advisors."
+  },
+  {
+    "question": "What industrial standards apply?",
+    "answer": "Relevant standards include ISO safety standards, OSHA regulations, electrical codes, and industry-specific crane operation guidelines."
+  },
+  {
+    "question": "What is ISO certification?",
+    "answer": "ISO certification demonstrates compliance with international quality, safety, and management standards through third-party verification."
+  },
+  {
+    "question": "How is OSHA compliance maintained?",
+    "answer": "OSHA compliance requires proper safety procedures, regular inspections, operator training, incident reporting, and hazard mitigation."
+  },
+  {
+    "question": "What safety documentation is required?",
+    "answer": "Required documentation includes operation manuals, maintenance records, inspection reports, training certificates, and incident logs."
+  },
+  {
+    "question": "How are safety incidents reported?",
+    "answer": "Safety incidents are logged immediately with details, severity, affected personnel, root cause analysis, and corrective actions taken."
+  },
+  {
+    "question": "What is root cause analysis?",
+    "answer": "Root cause analysis investigates incidents to identify underlying causes rather than symptoms, preventing future occurrences."
+  },
+  {
+    "question": "How is corrective action tracked?",
+    "answer": "Corrective actions are documented with responsible parties, deadlines, verification methods, and completion status."
+  },
+  {
+    "question": "What is preventive action?",
+    "answer": "Preventive action addresses potential issues before they cause problems, based on risk assessment and monitoring trends."
+  },
+  {
+    "question": "How is risk assessment performed?",
+    "answer": "Risk assessment identifies hazards, evaluates likelihood and impact, prioritizes risks, and develops mitigation strategies."
+  },
+  {
+    "question": "What is risk mitigation?",
+    "answer": "Risk mitigation implements controls, procedures, and safeguards to reduce probability or impact of identified risks."
+  },
+  {
+    "question": "How are safety procedures documented?",
+    "answer": "Safety procedures are written in clear steps, include diagrams, specify PPE requirements, and are reviewed regularly for updates."
+  },
+  {
+    "question": "What is standard operating procedure?",
+    "answer": "Standard Operating Procedure (SOP) documents step-by-step instructions for routine tasks, ensuring consistency and safety."
+  },
+  {
+    "question": "How often are SOPs updated?",
+    "answer": "SOPs are reviewed annually or when equipment, regulations, or best practices change, keeping procedures current and effective."
+  },
+  {
+    "question": "What is operator certification?",
+    "answer": "Operator certification verifies personnel have required training, skills, and knowledge to safely operate specific crane types."
+  },
+  {
+    "question": "How long is certification valid?",
+    "answer": "Certification validity varies by jurisdiction and crane type, typically 3-5 years, requiring renewal with testing and training."
+  },
+  {
+    "question": "What training is required for operators?",
+    "answer": "Training includes equipment operation, safety procedures, load calculations, emergency response, and regular refresher courses."
+  },
+  {
+    "question": "How is training effectiveness measured?",
+    "answer": "Training effectiveness is measured through tests, practical demonstrations, incident rates, and ongoing performance evaluation."
+  },
+  {
+    "question": "What is competency assessment?",
+    "answer": "Competency assessment evaluates operator skills, knowledge, and judgment through testing, observation, and performance review."
+  },
+  {
+    "question": "How are near-miss incidents handled?",
+    "answer": "Near-miss incidents are reported, investigated, and analyzed to identify systemic issues and prevent actual accidents."
+  },
+  {
+    "question": "What is safety culture?",
+    "answer": "Safety culture is organizational commitment where everyone prioritizes safety, reports concerns, and continuously improves practices."
+  },
+  {
+    "question": "How is safety culture developed?",
+    "answer": "Safety culture develops through leadership commitment, open communication, training, accountability, and celebrating safety achievements."
+  },
+  {
+    "question": "What are leading safety indicators?",
+    "answer": "Leading indicators are proactive metrics like training completion, inspection rates, and near-miss reporting that predict safety performance."
+  },
+  {
+    "question": "What are lagging safety indicators?",
+    "answer": "Lagging indicators are reactive metrics like injury rates, lost-time accidents, and incident severity measuring past safety performance."
+  },
+  {
+    "question": "How is safety performance tracked?",
+    "answer": "Safety performance uses dashboards showing leading and lagging indicators, trends over time, and comparison to industry benchmarks."
+  },
+  {
+    "question": "What is Total Recordable Incident Rate?",
+    "answer": "TRIR measures number of recordable incidents per 200,000 work hours, standardizing safety performance comparison across organizations."
+  },
+  {
+    "question": "What is Lost Time Injury Frequency?",
+    "answer": "LTIF measures injuries causing work absence per million work hours, indicating severity of safety incidents."
+  },
+  {
+    "question": "How are safety metrics benchmarked?",
+    "answer": "Safety metrics are compared against industry averages, best-in-class performers, and historical performance to identify improvement areas."
+  },
+  {
+    "question": "What is continuous improvement in safety?",
+    "answer": "Continuous improvement systematically identifies hazards, implements controls, measures effectiveness, and refines safety processes."
+  },
+  {
+    "question": "How is Crane IQ updated?",
+    "answer": "Crane IQ updates through app store releases for mobile, automatic web deployments, and database migrations for schema changes."
+  },
+  {
+    "question": "What is feature flag?",
+    "answer": "Feature flags enable/disable features without code deployment, allowing gradual rollouts and A/B testing of new functionality."
+  },
+  {
+    "question": "How is canary deployment used?",
+    "answer": "Canary deployment releases updates to small user subset first, monitoring for issues before full rollout to all users."
+  },
+  {
+    "question": "What is blue-green deployment?",
+    "answer": "Blue-green deployment maintains two identical environments, switching traffic instantly between them for zero-downtime updates."
+  },
+  {
+    "question": "How is rollback performed?",
+    "answer": "Rollback reverts to previous version when issues detected, using version control, database backups, and infrastructure-as-code."
+  },
+  {
+    "question": "What is infrastructure-as-code?",
+    "answer": "Infrastructure-as-code defines server configuration in version-controlled files, enabling reproducible, automated environment setup."
+  },
+  {
+    "question": "How is scalability achieved?",
+    "answer": "Scalability uses horizontal scaling (more servers), vertical scaling (bigger servers), load balancing, and efficient architecture."
+  },
+  {
+    "question": "What is horizontal scaling?",
+    "answer": "Horizontal scaling adds more server instances to distribute load, improving capacity and reliability through redundancy."
+  },
+  {
+    "question": "What is vertical scaling?",
+    "answer": "Vertical scaling increases server resources (CPU, RAM, storage) to handle more load on single instance."
+  },
+  {
+    "question": "What is load balancing?",
+    "answer": "Load balancing distributes incoming requests across multiple servers, preventing overload and improving response times."
+  },
+  {
+    "question": "How is database scaling handled?",
+    "answer": "Database scaling uses read replicas, sharding, connection pooling, and caching to handle increased data and query load."
+  },
+  {
+    "question": "What is database sharding?",
+    "answer": "Sharding splits database across multiple servers by partitioning data, distributing load and improving query performance."
+  },
+  {
+    "question": "What is read replica?",
+    "answer": "Read replica is database copy that handles read queries, reducing load on primary database and improving read performance."
+  },
+  {
+    "question": "What is connection pooling?",
+    "answer": "Connection pooling reuses database connections instead of creating new ones, reducing overhead and improving performance."
+  },
+  {
+    "question": "How is data consistency ensured?",
+    "answer": "Data consistency uses transactions, constraints, validation rules, and ACID properties to maintain accurate, reliable data."
+  },
+  {
+    "question": "What are ACID properties?",
+    "answer": "ACID ensures database reliability: Atomicity (all-or-nothing), Consistency (valid states), Isolation (concurrent safety), Durability (permanent storage)."
+  },
+  {
+    "question": "What is database transaction?",
+    "answer": "Transaction is group of operations that succeed or fail together, ensuring data consistency even during errors or failures."
+  },
+  {
+    "question": "How are concurrent updates handled?",
+    "answer": "Concurrent updates use locking, optimistic concurrency, or conflict resolution strategies to prevent data corruption."
+  },
+  {
+    "question": "What is optimistic locking?",
+    "answer": "Optimistic locking assumes conflicts are rare, checking for changes before update and retrying if another process modified data."
+  },
+  {
+    "question": "What is pessimistic locking?",
+    "answer": "Pessimistic locking prevents conflicts by exclusively locking data during read, ensuring no concurrent modifications occur."
+  },
+  {
+    "question": "How is data replication configured?",
+    "answer": "Data replication copies data to multiple servers for redundancy, using master-slave or multi-master configurations."
+  },
+  {
+    "question": "What is master-slave replication?",
+    "answer": "Master-slave replication writes to master database, automatically copying changes to slave replicas for read scaling and backup."
+  },
+  {
+    "question": "What is eventual consistency?",
+    "answer": "Eventual consistency allows temporary data differences across replicas, guaranteeing synchronization will occur eventually."
+  },
+  {
+    "question": "How is data synchronization monitored?",
+    "answer": "Synchronization monitoring tracks replication lag, identifies delays, and alerts when replicas fall behind primary database."
+  },
+  {
+    "question": "What causes replication lag?",
+    "answer": "Replication lag results from high write volume, network latency, replica performance issues, or long-running queries."
+  },
+  {
+    "question": "How is system health monitored?",
+    "answer": "System health monitoring tracks server metrics, application performance, error rates, and availability using monitoring tools."
+  },
+  {
+    "question": "What metrics indicate system problems?",
+    "answer": "Problem indicators include high CPU usage, memory leaks, disk space shortage, elevated error rates, and slow response times."
+  },
+  {
+    "question": "What is alerting strategy?",
+    "answer": "Alerting strategy defines thresholds, notification methods, escalation procedures, and on-call schedules for incident response."
+  },
+  {
+    "question": "How are alerts prioritized?",
+    "answer": "Alerts are prioritized by impact and urgency: P1 for critical outages, P2 for degraded service, P3 for warnings."
+  },
+  {
+    "question": "What is incident response plan?",
+    "answer": "Incident response plan defines roles, communication channels, troubleshooting steps, and escalation procedures for system issues."
+  },
+  {
+    "question": "How is mean time to recovery calculated?",
+    "answer": "MTTR is average time from incident detection to resolution, measuring how quickly team restores normal operations."
+  },
+  {
+    "question": "What is postmortem analysis?",
+    "answer": "Postmortem analysis reviews incidents without blame to identify root causes, lessons learned, and prevent future occurrences."
+  },
+  {
+    "question": "How are system dependencies managed?",
+    "answer": "Dependencies are tracked, versioned, updated carefully, and tested to prevent breaking changes and security vulnerabilities."
+  },
+  {
+    "question": "What is dependency vulnerability scanning?",
+    "answer": "Vulnerability scanning automatically checks dependencies for known security issues, alerting for updates or patches needed."
+  },
+  {
+    "question": "How are security patches applied?",
+    "answer": "Security patches are tested in staging, applied during maintenance windows, and verified before exposing to production traffic."
+  },
+  {
+    "question": "What is penetration testing?",
+    "answer": "Penetration testing simulates attacks to identify security weaknesses before malicious actors exploit them."
+  },
+  {
+    "question": "How often should security audits occur?",
+    "answer": "Security audits should occur annually at minimum, with more frequent reviews after major changes or incidents."
+  },
+  {
+    "question": "What is vulnerability disclosure program?",
+    "answer": "Vulnerability disclosure program allows security researchers to safely report issues, improving security through community collaboration."
+  },
+  {
+    "question": "How is system documentation maintained?",
+    "answer": "Documentation is maintained through wiki, code comments, architecture diagrams, runbooks, and keeping docs alongside code changes."
+  },
+  {
+    "question": "What is runbook?",
+    "answer": "Runbook provides step-by-step instructions for common operations, troubleshooting, and incident response procedures."
+  },
+  {
+    "question": "What should architecture documentation include?",
+    "answer": "Architecture documentation includes system components, data flows, integration points, technology choices, and design decisions."
+  },
+  {
+    "question": "How is API documented?",
+    "answer": "APIs are documented with endpoint descriptions, parameters, request/response examples, authentication, and error codes."
+  },
+  {
+    "question": "What is API versioning?",
+    "answer": "API versioning manages changes while maintaining backward compatibility, using version numbers in URLs or headers."
+  },
+  {
+    "question": "How are breaking changes communicated?",
+    "answer": "Breaking changes require advance notice, migration guides, deprecation warnings, and overlapping support for old versions."
+  },
+  {
+    "question": "What is deprecation policy?",
+    "answer": "Deprecation policy defines timeline for removing old features, providing migration paths and support during transition period."
+  },
+  {
+    "question": "How is user feedback collected?",
+    "answer": "User feedback uses in-app surveys, support tickets, usage analytics, interviews, and beta testing programs."
+  },
+  {
+    "question": "What is beta testing?",
+    "answer": "Beta testing releases new features to select users for feedback before general availability, identifying issues early."
+  },
+  {
+    "question": "How are feature requests prioritized?",
+    "answer": "Feature requests are prioritized by user impact, business value, development effort, and strategic alignment."
+  },
+  {
+    "question": "What is product roadmap?",
+    "answer": "Product roadmap outlines planned features, improvements, and timeline, guiding development priorities and stakeholder expectations."
+  },
+  {
+    "question": "How is technical debt managed?",
+    "answer": "Technical debt is tracked, prioritized alongside features, and addressed through refactoring sprints and continuous improvement."
+  },
+  {
+    "question": "What is refactoring?",
+    "answer": "Refactoring improves code structure without changing functionality, enhancing readability, maintainability, and performance."
+  },
+  {
+    "question": "When should code be refactored?",
+    "answer": "Refactor when adding features to messy code, fixing bugs repeatedly, or when code becomes difficult to understand or modify."
+  },
+  {
+    "question": "What is code review?",
+    "answer": "Code review has peers examine changes for correctness, quality, security, and adherence to standards before merging."
+  },
+  {
+    "question": "What makes a good code review?",
+    "answer": "Good reviews are thorough but constructive, focus on important issues, explain reasoning, and suggest improvements."
+  },
+  {
+    "question": "How is code quality measured?",
+    "answer": "Code quality metrics include test coverage, complexity, duplication, style consistency, and issue detection by static analysis."
+  },
+  {
+    "question": "What is static code analysis?",
+    "answer": "Static analysis examines code without execution to find bugs, security issues, style violations, and potential problems."
+  },
+  {
+    "question": "What is linting?",
+    "answer": "Linting automatically checks code for style issues, common mistakes, and adherence to coding standards."
+  },
+  {
+    "question": "How are coding standards enforced?",
+    "answer": "Standards are enforced through linters, code formatters, review checklists, and automated checks in CI pipeline."
+  },
+  {
+    "question": "What is code formatting?",
+    "answer": "Code formatting automatically styles code consistently using tools like Prettier or dartfmt, improving readability."
+  },
+  {
+    "question": "Why is consistent formatting important?",
+    "answer": "Consistent formatting reduces cognitive load, makes code easier to read and review, and prevents style-related conflicts."
+  },
+  {
+    "question": "What is pair programming?",
+    "answer": "Pair programming has two developers work together at one computer, improving code quality and knowledge sharing."
+  },
+  {
+    "question": "What is mob programming?",
+    "answer": "Mob programming has whole team collaborate on single task, promoting collective code ownership and real-time review."
+  },
+  {
+    "question": "How is knowledge transfer facilitated?",
+    "answer": "Knowledge transfer uses documentation, pair programming, code reviews, team presentations, and mentoring relationships."
+  },
+  {
+    "question": "What is onboarding process?",
+    "answer": "Onboarding introduces new team members to codebase, tools, processes, and culture through structured training and mentorship."
+  },
+  {
+    "question": "How long does onboarding typically take?",
+    "answer": "Effective onboarding takes 2-12 weeks depending on complexity, with gradual increase in responsibilities and autonomy."
+  },
+  {
+    "question": "What is agile development?",
+    "answer": "Agile development uses iterative approach with short cycles, continuous feedback, and adaptability to changing requirements."
+  },
+  {
+    "question": "What is sprint in agile?",
+    "answer": "Sprint is fixed time period (1-4 weeks) where team completes planned work, ending with review and retrospective."
+  },
+  {
+    "question": "What is daily standup?",
+    "answer": "Daily standup is brief meeting where team members share progress, plans, and blockers, maintaining alignment and momentum."
+  },
+  {
+    "question": "What is sprint retrospective?",
+    "answer": "Sprint retrospective reviews what went well, what didn't, and identifies improvements for next sprint, fostering continuous improvement."
+  },
+  {
+    "question": "What is user story?",
+    "answer": "User story describes feature from user perspective (As a [role], I want [feature], so that [benefit]), focusing on value."
+  },
+  {
+    "question": "What is acceptance criteria?",
+    "answer": "Acceptance criteria define conditions that must be met for user story to be considered complete and acceptable."
+  },
+  {
+    "question": "What is definition of done?",
+    "answer": "Definition of done is checklist ensuring work meets quality standards: coded, tested, reviewed, documented, and deployed."
+  },
+  {
+    "question": "How is velocity calculated in agile?",
+    "answer": "Velocity measures story points or tasks completed per sprint, helping predict capacity and plan future work realistically."
+  },
+  {
+    "question": "What is burndown chart?",
+    "answer": "Burndown chart visualizes remaining work over sprint time, showing progress and whether team will complete planned work."
+  },
+  {
+    "question": "What is technical spike?",
+    "answer": "Technical spike is time-boxed research to investigate unknowns, evaluate approaches, or reduce uncertainty before implementation."
+  },
+  {
+    "question": "How are estimates created?",
+    "answer": "Estimates use techniques like story points, t-shirt sizing, or planning poker, focusing on relative complexity rather than hours."
+  },
+  {
+    "question": "What is planning poker?",
+    "answer": "Planning poker has team members simultaneously estimate work using cards, discussing differences to reach consensus."
+  },
+  {
+    "question": "Why are estimates often inaccurate?",
+    "answer": "Estimates are uncertain due to unknown complexity, changing requirements, interruptions, and optimism bias in predictions."
+  },
+  {
+    "question": "How is estimation accuracy improved?",
+    "answer": "Accuracy improves through historical data, breaking work into smaller pieces, accounting for uncertainty, and regular calibration."
+  },
+  {
+    "question": "What is minimum viable product?",
+    "answer": "MVP is simplest version with core features needed to validate concept and gather user feedback before full development."
+  },
+  {
+    "question": "Why build MVP first?",
+    "answer": "MVP minimizes wasted effort on unwanted features, enables faster learning, and validates assumptions with real users early."
+  },
+  {
+    "question": "What comes after MVP?",
+    "answer": "After MVP, iteratively add features based on user feedback, metrics, and business priorities, evolving toward full product."
+  },
+  {
+    "question": "How is product-market fit determined?",
+    "answer": "Product-market fit shows strong demand, user retention, organic growth, and customers willing to pay, indicating valuable solution."
+  },
+  {
+    "question": "What metrics indicate product success?",
+    "answer": "Success metrics include user growth, engagement"
+  },
+  
+  {
+    "question": "What is the Operations Log in CraneIQ?",
+    "answer": "The Operations Log provides a complete record of all crane operations including hoisting, lowering, and travel movements with detailed timestamps, durations, and load information."
+  },
+  {
+    "question": "What types of crane operations are tracked?",
+    "answer": "CraneIQ tracks Hoist Up/Down, CT (Cross Travel) Left/Right, LT (Long Travel) Forward/Reverse, and Switch operations with color-coded indicators."
+  },
+  {
+    "question": "How many hoist operations were recorded in the sample data?",
+    "answer": "In the sample data, there were 142 total hoist operations with 87 up movements and 55 down movements."
+  },
+  {
+    "question": "What is the total operation duration shown?",
+    "answer": "The total operation duration displayed is 8 hours, 42 minutes, and 15 seconds across all crane activities."
+  },
+  {
+    "question": "How much total load was handled in the operations?",
+    "answer": "The system shows a total load of 287.5 tons was handled across all recorded operations."
+  },
+  {
+    "question": "What crane had the heaviest load in the sample data?",
+    "answer": "CRN-005 handled the heaviest load of 7,500 kg during an LT Forward operation at 11:15:06."
+  },
+  {
+    "question": "What is Load Lift Log used for?",
+    "answer": "The Load Lift Log records all load weight measurements, calculates capacity utilization percentages, and monitors overload conditions with status indicators."
+  },
+  {
+    "question": "What is the current load across all cranes?",
+    "answer": "The current load across all cranes is 4,250 kg with an average capacity utilization of 72%."
+  },
+  {
+    "question": "What crane has the maximum capacity?",
+    "answer": "CRN-004 has a maximum capacity of 6,800 kg (6T capacity) according to the load monitoring data."
+  },
+  {
+    "question": "What percentage is considered an overload?",
+    "answer": "Load percentages exceeding 100% are marked as overloads, as seen with CRN-003 at 124% and CRN-004 at 102%."
+  },
+  {
+    "question": "What is the Vibration Monitoring feature?",
+    "answer": "Vibration Monitoring provides real-time vibration analysis of crane components across multiple axes with status indicators for normal, warning, and critical conditions."
+  },
+  {
+    "question": "What vibration parameters are measured?",
+    "answer": "The system measures Peak Acceleration (m/s² RMS), Velocity (mm/s RMS), Displacement (mm P-P), and Dominant Frequency (Hz)."
+  },
+  {
+    "question": "Which component shows critical vibration status?",
+    "answer": "The Trolley Motor shows critical vibration status with measurements of 2.9 (X), 3.1 (Y), and 7.6 (Z-axis)."
+  },
+  {
+    "question": "What components have warning status in vibration monitoring?",
+    "answer": "The Hoist Motor and Pulley components show warning status with elevated vibration levels across multiple axes."
+  },
+  {
+    "question": "What is Energy Monitoring used for?",
+    "answer": "Energy Monitoring provides comprehensive analysis of power consumption, current draw, voltage levels, efficiency metrics, and energy costs."
+  },
+  {
+    "question": "What is the total power consumption shown?",
+    "answer": "The total power consumption is 24.8 kW with an hourly energy cost of $18.42 and system efficiency of 87%."
+  },
+  {
+    "question": "How is energy efficiency measured?",
+    "answer": "Energy efficiency is measured as 87% system efficiency with energy consumption of 1.2 kWh per ton of load handled."
+  },
+  {
+    "question": "Which crane had high power consumption?",
+    "answer": "CRN-005 showed high power consumption of 15 kW during hoist operations at 11:15:06."
+  },
+  {
+    "question": "What does Temperature Monitoring track?",
+    "answer": "Temperature Monitoring tracks real-time and historical temperature measurements of crane components with warning and critical thresholds."
+  },
+  {
+    "question": "What temperature thresholds are used for hoist motors?",
+    "answer": "Hoist motors have warning thresholds at 80°C and critical thresholds at 90°C for temperature monitoring."
+  },
+  {
+    "question": "Which crane had critical temperature issues?",
+    "answer": "CRN-005 had critical temperature of 92°C on its hoist motor, exceeding the 90°C critical threshold."
+  },
+  {
+    "question": "What is Brake Monitoring used for?",
+    "answer": "Brake Monitoring tracks brake system status, activation counts, wear rates, air gap measurements, and predicts component lifespan."
+  },
+  {
+    "question": "How many total brake activations are recorded?",
+    "answer": "There are 12,487 total brake activations recorded with a 3.2% increase from the previous week."
+  },
+  {
+    "question": "What is the average brake wear rate?",
+    "answer": "The average brake wear rate is 2.3% with a 0.5% increase from the previous month."
+  },
+  {
+    "question": "Which brake shows critical status?",
+    "answer": "CRN-004's hoist brake shows critical status with 42% wear, 2.4mm air gap, and poor shoe condition."
+  },
+  {
+    "question": "What is Zone Control used for?",
+    "answer": "Zone Control provides real-time 3D visualization and management of restricted zones for overhead crane operations with position tracking."
+  },
+  {
+    "question": "What zones are defined in the system?",
+    "answer": "The system defines Work Zones (Main Work Area, Loading Dock), Restricted Zones (Personnel Area), and Warning Zones (Equipment Storage)."
+  },
+  {
+    "question": "What are the current crane positions?",
+    "answer": "Current positions are Bridge: 2.50m, Trolley: 0.00m, and Hook Height: 5.00m in the ZN-001 Work Area."
+  },
+  {
+    "question": "What is the Machine Rule Engine?",
+    "answer": "The Machine Rule Engine allows creation and management of automation rules for cranes based on conditions and scheduled triggers."
+  },
+  {
+    "question": "What types of rules can be created?",
+    "answer": "You can create Conditional Rules (based on data points) and Scheduled Rules (time-based) with various actions and triggers."
+  },
+  {
+    "question": "What active rules are shown?",
+    "answer": "Active rules include Extended Operation Alert, Weekend Operation Alert, High Ambient Temperature Alert, Maintenance Due Alert, and Weekly Maintenance Check."
+  },
+  {
+    "question": "What is the Data Hub?",
+    "answer": "The Data Hub monitors and manages machine data points in real-time, connecting machine data with gateway sensor readings."
+  },
+  {
+    "question": "What machines are connected?",
+    "answer": "Connected machines include Crane-101, Conveyor-205, and Robotic Arm-307 with various data points and gateway connections."
+  },
+  {
+    "question": "What gateways are online?",
+    "answer": "Gateway-101 and Gateway-102 are online, while Backup Gateway is offline in the current status."
+  },
+  {
+    "question": "What is the Error Log used for?",
+    "answer": "The Error Log tracks system errors, warnings, and operational issues from all sensors and manual reports with severity levels and assignment tracking."
+  },
+  {
+    "question": "What error severity levels are used?",
+    "answer": "Error severity levels include Critical, Error, Warning, and Info with color-coded indicators and different response priorities."
+  },
+  {
+    "question": "What types of errors are recorded?",
+    "answer": "Errors include VFD (electrical), Limit (mechanical), Temperature (mechanical), Load (software), Rope (mechanical), and Manual (safety) errors."
+  },
+  {
+    "question": "How are errors assigned and tracked?",
+    "answer": "Errors are assigned to team members like John Smith, Sarah Johnson, etc., with statuses like Investigating, Acknowledged, Resolved, and Unresolved."
+  },
+  {
+    "question": "What reporting features are available?",
+    "answer": "Reporting features include Operations Log, Load Analysis, Error Summary, Performance Trends, Voltage Analysis, and Temperature Report generation."
+  },
+  {
+    "question": "How many reports were generated this month?",
+    "answer": "142 reports were generated this month with an average size of 3.2MB, primarily in PDF format."
+  },
+  {
+    "question": "What report formats are supported?",
+    "answer": "Reports can be generated in PDF (Portable Document) format with options for standard, custom, and scheduled report types."
+  },
+  {
+    "question": "What alert types are monitored?",
+    "answer": "Alert types include Overload, Temperature, Voltage, Maintenance, and Operation alerts with Critical, Warning, Info, and Normal severity levels."
+  },
+  {
+    "question": "How many critical alerts occurred today?",
+    "answer": "There were 12 critical alerts today, including overload detection and voltage drop incidents."
+  },
+  {
+    "question": "What notification methods are available?",
+    "answer": "Notification methods include In-App Notifications, Email Notifications, and SMS Notifications with customizable schedules."
+  },
+  {
+    "question": "What is Machine Management used for?",
+    "answer": "Machine Management handles all machine configurations, types, and details with creation and editing capabilities."
+  },
+  {
+    "question": "What gateway protocols are supported?",
+    "answer": "Supported gateway protocols include MQTT and HTTP with device tokens for secure communication."
+  },
+  {
+    "question": "What gateway statuses are shown?",
+    "answer": "Gateway statuses include Online and Offline with main gateways typically using MQTT protocol for real-time data transmission."
+  },
+  {
+    "question": "What device types can be managed?",
+    "answer": "Device Management handles sensor devices with configurable polling intervals and gateway associations."
+  },
+  {
+    "question": "What help resources are available?",
+    "answer": "Help resources include Getting Started guides, Dashboard documentation, Operations Log details, and contact support options."
+  },
+  {
+    "question": "How can I contact CraneIQ support?",
+    "answer": "Support options include email (support@craneiq.com), phone (+1 (800) 555-0199), live chat, and knowledge base access."
+  },
+  {
+    "question": "What are the key features of CraneIQ?",
+    "answer": "Key features include real-time monitoring, historical data analysis, automated alerts, predictive maintenance, and multi-user access with role-based permissions."
+  },
+  {
+    "question": "How do I filter operations in the log?",
+    "answer": "You can filter by specific crane, operation type, and date range using the filter controls and apply filters to update the view."
+  },
+  {
+    "question": "What do the operation type colors represent?",
+    "answer": "Colors represent different operations: Hoist Up/Down, CT Left/Right, LT Forward/Reverse, and Switch operations with distinct color coding."
+  },
+  {
+    "question": "How accurate are operation duration measurements?",
+    "answer": "Operation duration measurements are precise to seconds and are recorded automatically by the crane's control system sensors."
+  },
+  {
+    "question": "Can I track multiple cranes simultaneously?",
+    "answer": "Yes, CraneIQ supports simultaneous tracking of multiple cranes with individual identification and consolidated reporting."
+  },
+  {
+    "question": "How far back does historical data go?",
+    "answer": "Historical data storage duration depends on system configuration, but sample data shows records spanning several days with comprehensive logging."
+  },
+  {
+    "question": "What is OEE in the dashboard?",
+    "answer": "OEE stands for Overall Equipment Effectiveness, which measures crane utilization, performance, and quality metrics."
+  },
+  {
+    "question": "How do I set up custom alerts?",
+    "answer": "Custom alerts can be set up through the Alerts & Notifications section by defining conditions, thresholds, and notification methods."
+  },
+  {
+    "question": "What vibration status colors are used?",
+    "answer": "Vibration status uses colors: Normal (typically green), Warning (yellow/orange), and Critical (red) based on threshold exceedances."
+  },
+  {
+    "question": "How often is vibration data updated?",
+    "answer": "Vibration data updates in real-time as sensors transmit readings, providing continuous monitoring of crane component health."
+  },
+  {
+    "question": "Can I export vibration data for analysis?",
+    "answer": "Yes, vibration data can be exported through the reporting features for external analysis and detailed engineering review."
+  },
+  {
+    "question": "What is the average air gap for brakes?",
+    "answer": "The average air gap is 1.8 mm with a 0.2mm change from the previous month, indicating brake adjustment needs."
+  },
+  {
+    "question": "How is brake lifespan predicted?",
+    "answer": "Brake lifespan is predicted based on activation counts, wear rates, and historical performance data, currently showing 342 days remaining."
+  },
+  {
+    "question": "What are the zone types available?",
+    "answer": "Zone types include Work Zones (normal operation), Restricted Zones (no entry), and Warning Zones (caution required)."
+  },
+  {
+    "question": "How is crane position tracked?",
+    "answer": "Crane position is tracked in 3D coordinates: Bridge (X), Trolley (Z), and Hook Height (Y) with real-time updates."
+  },
+  {
+    "question": "What safety parameters can be set for zones?",
+    "answer": "Safety parameters include speed limits, access restrictions, and proximity warnings based on zone type and operational requirements."
+  },
+  {
+    "question": "How do conditional rules work?",
+    "answer": "Conditional rules trigger actions based on data point conditions like operation time, temperature, load, or maintenance schedules."
+  },
+  {
+    "question": "What actions can rules perform?",
+    "answer": "Rules can trigger alerts, notifications, reports, maintenance requests, or operational changes based on defined conditions."
+  },
+  {
+    "question": "How are data points linked between machines and gateways?",
+    "answer": "Data points are linked by selecting machine data points and corresponding gateway sensor readings, then creating connections for visualization."
+  },
+  {
+    "question": "What data points are typically monitored?",
+    "answer": "Typical data points include Load Weight, Power Consumption, Motor Temperature, Vibration, Position, and Operational status."
+  },
+  {
+    "question": "How are error codes structured?",
+    "answer": "Error codes follow patterns like VFD-ERR-2023-001, indicating component (VFD), type (ERR), year, and sequence number."
+  },
+  {
+    "question": "What is the error resolution process?",
+    "answer": "The process includes error detection, assignment to personnel, investigation, resolution, and status tracking with audit trails."
+  },
+  {
+    "question": "How many scheduled reports are active?",
+    "answer": "There are 8 scheduled reports active, running automatically based on defined schedules and conditions."
+  },
+  {
+    "question": "What are alert trends used for?",
+    "answer": "Alert trends help identify patterns, recurring issues, and system performance over time for proactive maintenance and improvements."
+  },
+  {
+    "question": "How do notification schedules work?",
+    "answer": "Notification schedules can be set for 24/7, business hours only, or with quiet hours to manage alert delivery timing."
+  },
+  {
+    "question": "What machine types can be created?",
+    "answer": "Various machine types including cranes, conveyors, robotic arms, and other industrial equipment with customizable configurations."
+  },
+  {
+    "question": "How are gateways authenticated?",
+    "answer": "Gateways use device tokens (like tok_abc123def456) for secure authentication and communication with the central system."
+  },
+  {
+    "question": "What polling intervals are available for devices?",
+    "answer": "Polling intervals are configurable based on device type and monitoring requirements, balancing data freshness with system load."
+  },
+  {
+    "question": "What is included in the Getting Started guide?",
+    "answer": "The guide covers system overview, key features, dashboard navigation, basic operations, and initial setup procedures."
+  },
+  {
+    "question": "How do I use the filter bar?",
+    "answer": "The filter bar allows quick sorting of cranes by status (Working, Idle, Off) and other parameters for focused monitoring."
+  },
+  {
+    "question": "What quick stats are available?",
+    "answer": "Quick stats include power consumption, current draw, utilization rates, and operational metrics for at-a-glance monitoring."
+  },
+  {
+    "question": "How do I view detailed crane metrics?",
+    "answer": "Click on any crane card in the dashboard to access detailed metrics, historical data, and component-specific information."
+  },
+  {
+    "question": "What advanced filtering options are available?",
+    "answer": "Advanced filtering includes crane selection, operation type, date ranges, load ranges, and status-based filtering for precise data analysis."
+  },
+  {
+    "question": "How are operation durations measured?",
+    "answer": "Durations are measured in minutes:seconds format, automatically recorded from operation start to completion by the control system."
+  },
+  {
+    "question": "What color coding is used for operations?",
+    "answer": "Different colors distinguish hoist, cross travel, long travel, and switching operations for quick visual identification in logs."
+  },
+  {
+    "question": "How do I export operation logs?",
+    "answer": "Operation logs can be exported to CSV, Excel, or PDF formats through the Reports section for external analysis and documentation."
+  },
+  {
+    "question": "What is utilization analysis?",
+    "answer": "Utilization analysis calculates equipment usage rates, idle times, and operational efficiency for capacity planning and optimization."
+  },
+  {
+    "question": "How do I troubleshoot missing operation records?",
+    "answer": "Check sensor connections, verify date filters, confirm crane operation during selected periods, and review system connectivity."
+  },
+  {
+    "question": "What support options are available for persistent issues?",
+    "answer": "For persistent issues, contact support via email, phone, or live chat with detailed error descriptions and system information."
+  },
+  
+  {
+    "question": "What is the Operations Log in CraneIQ?",
+    "answer": "The Operations Log provides a complete record of all crane operations including hoisting, lowering, and travel movements with detailed timestamps, durations, and load information."
+  },
+  {
+    "question": "What types of crane operations are tracked?",
+    "answer": "CraneIQ tracks Hoist Up/Down, CT (Cross Travel) Left/Right, LT (Long Travel) Forward/Reverse, and Switch operations with color-coded indicators."
+  },
+  {
+    "question": "How many hoist operations were recorded in the sample data?",
+    "answer": "In the sample data, there were 142 total hoist operations with 87 up movements and 55 down movements."
+  },
+  {
+    "question": "What is the total operation duration shown?",
+    "answer": "The total operation duration displayed is 8 hours, 42 minutes, and 15 seconds across all crane activities."
+  },
+  {
+    "question": "How much total load was handled in the operations?",
+    "answer": "The system shows a total load of 287.5 tons was handled across all recorded operations."
+  },
+  {
+    "question": "What crane had the heaviest load in the sample data?",
+    "answer": "CRN-005 handled the heaviest load of 7,500 kg during an LT Forward operation at 11:15:06."
+  },
+  {
+    "question": "What is Load Lift Log used for?",
+    "answer": "The Load Lift Log records all load weight measurements, calculates capacity utilization percentages, and monitors overload conditions with status indicators."
+  },
+  {
+    "question": "What is the current load across all cranes?",
+    "answer": "The current load across all cranes is 4,250 kg with an average capacity utilization of 72%."
+  },
+  {
+    "question": "What crane has the maximum capacity?",
+    "answer": "CRN-004 has a maximum capacity of 6,800 kg (6T capacity) according to the load monitoring data."
+  },
+  {
+    "question": "What percentage is considered an overload?",
+    "answer": "Load percentages exceeding 100% are marked as overloads, as seen with CRN-003 at 124% and CRN-004 at 102%."
+  },
+  {
+    "question": "What is the Vibration Monitoring feature?",
+    "answer": "Vibration Monitoring provides real-time vibration analysis of crane components across multiple axes with status indicators for normal, warning, and critical conditions."
+  },
+  {
+    "question": "What vibration parameters are measured?",
+    "answer": "The system measures Peak Acceleration (m/s² RMS), Velocity (mm/s RMS), Displacement (mm P-P), and Dominant Frequency (Hz)."
+  },
+  {
+    "question": "Which component shows critical vibration status?",
+    "answer": "The Trolley Motor shows critical vibration status with measurements of 2.9 (X), 3.1 (Y), and 7.6 (Z-axis)."
+  },
+  {
+    "question": "What components have warning status in vibration monitoring?",
+    "answer": "The Hoist Motor and Pulley components show warning status with elevated vibration levels across multiple axes."
+  },
+  {
+    "question": "What is Energy Monitoring used for?",
+    "answer": "Energy Monitoring provides comprehensive analysis of power consumption, current draw, voltage levels, efficiency metrics, and energy costs."
+  },
+  {
+    "question": "What is the total power consumption shown?",
+    "answer": "The total power consumption is 24.8 kW with an hourly energy cost of $18.42 and system efficiency of 87%."
+  },
+  {
+    "question": "How is energy efficiency measured?",
+    "answer": "Energy efficiency is measured as 87% system efficiency with energy consumption of 1.2 kWh per ton of load handled."
+  },
+  {
+    "question": "Which crane had high power consumption?",
+    "answer": "CRN-005 showed high power consumption of 15 kW during hoist operations at 11:15:06."
+  },
+  {
+    "question": "What does Temperature Monitoring track?",
+    "answer": "Temperature Monitoring tracks real-time and historical temperature measurements of crane components with warning and critical thresholds."
+  },
+  {
+    "question": "What temperature thresholds are used for hoist motors?",
+    "answer": "Hoist motors have warning thresholds at 80°C and critical thresholds at 90°C for temperature monitoring."
+  },
+  {
+    "question": "Which crane had critical temperature issues?",
+    "answer": "CRN-005 had critical temperature of 92°C on its hoist motor, exceeding the 90°C critical threshold."
+  },
+  {
+    "question": "What is Brake Monitoring used for?",
+    "answer": "Brake Monitoring tracks brake system status, activation counts, wear rates, air gap measurements, and predicts component lifespan."
+  },
+  {
+    "question": "How many total brake activations are recorded?",
+    "answer": "There are 12,487 total brake activations recorded with a 3.2% increase from the previous week."
+  },
+  {
+    "question": "What is the average brake wear rate?",
+    "answer": "The average brake wear rate is 2.3% with a 0.5% increase from the previous month."
+  },
+  {
+    "question": "Which brake shows critical status?",
+    "answer": "CRN-004's hoist brake shows critical status with 42% wear, 2.4mm air gap, and poor shoe condition."
+  },
+  {
+    "question": "What is Zone Control used for?",
+    "answer": "Zone Control provides real-time 3D visualization and management of restricted zones for overhead crane operations with position tracking."
+  },
+  {
+    "question": "What zones are defined in the system?",
+    "answer": "The system defines Work Zones (Main Work Area, Loading Dock), Restricted Zones (Personnel Area), and Warning Zones (Equipment Storage)."
+  },
+  {
+    "question": "What are the current crane positions?",
+    "answer": "Current positions are Bridge: 2.50m, Trolley: 0.00m, and Hook Height: 5.00m in the ZN-001 Work Area."
+  },
+  {
+    "question": "What is the Machine Rule Engine?",
+    "answer": "The Machine Rule Engine allows creation and management of automation rules for cranes based on conditions and scheduled triggers."
+  },
+  {
+    "question": "What types of rules can be created?",
+    "answer": "You can create Conditional Rules (based on data points) and Scheduled Rules (time-based) with various actions and triggers."
+  },
+  {
+    "question": "What active rules are shown?",
+    "answer": "Active rules include Extended Operation Alert, Weekend Operation Alert, High Ambient Temperature Alert, Maintenance Due Alert, and Weekly Maintenance Check."
+  },
+  {
+    "question": "What is the Data Hub?",
+    "answer": "The Data Hub monitors and manages machine data points in real-time, connecting machine data with gateway sensor readings."
+  },
+  {
+    "question": "What machines are connected?",
+    "answer": "Connected machines include Crane-101, Conveyor-205, and Robotic Arm-307 with various data points and gateway connections."
+  },
+  {
+    "question": "What gateways are online?",
+    "answer": "Gateway-101 and Gateway-102 are online, while Backup Gateway is offline in the current status."
+  },
+  {
+    "question": "What is the Error Log used for?",
+    "answer": "The Error Log tracks system errors, warnings, and operational issues from all sensors and manual reports with severity levels and assignment tracking."
+  },
+  {
+    "question": "What error severity levels are used?",
+    "answer": "Error severity levels include Critical, Error, Warning, and Info with color-coded indicators and different response priorities."
+  },
+  {
+    "question": "What types of errors are recorded?",
+    "answer": "Errors include VFD (electrical), Limit (mechanical), Temperature (mechanical), Load (software), Rope (mechanical), and Manual (safety) errors."
+  },
+  {
+    "question": "How are errors assigned and tracked?",
+    "answer": "Errors are assigned to team members like John Smith, Sarah Johnson, etc., with statuses like Investigating, Acknowledged, Resolved, and Unresolved."
+  },
+  {
+    "question": "What reporting features are available?",
+    "answer": "Reporting features include Operations Log, Load Analysis, Error Summary, Performance Trends, Voltage Analysis, and Temperature Report generation."
+  },
+  {
+    "question": "How many reports were generated this month?",
+    "answer": "142 reports were generated this month with an average size of 3.2MB, primarily in PDF format."
+  },
+  {
+    "question": "What report formats are supported?",
+    "answer": "Reports can be generated in PDF (Portable Document) format with options for standard, custom, and scheduled report types."
+  },
+  {
+    "question": "What alert types are monitored?",
+    "answer": "Alert types include Overload, Temperature, Voltage, Maintenance, and Operation alerts with Critical, Warning, Info, and Normal severity levels."
+  },
+  {
+    "question": "How many critical alerts occurred today?",
+    "answer": "There were 12 critical alerts today, including overload detection and voltage drop incidents."
+  },
+  {
+    "question": "What notification methods are available?",
+    "answer": "Notification methods include In-App Notifications, Email Notifications, and SMS Notifications with customizable schedules."
+  },
+  {
+    "question": "What is Machine Management used for?",
+    "answer": "Machine Management handles all machine configurations, types, and details with creation and editing capabilities."
+  },
+  {
+    "question": "What gateway protocols are supported?",
+    "answer": "Supported gateway protocols include MQTT and HTTP with device tokens for secure communication."
+  },
+  {
+    "question": "What gateway statuses are shown?",
+    "answer": "Gateway statuses include Online and Offline with main gateways typically using MQTT protocol for real-time data transmission."
+  },
+  {
+    "question": "What device types can be managed?",
+    "answer": "Device Management handles sensor devices with configurable polling intervals and gateway associations."
+  },
+  {
+    "question": "What help resources are available?",
+    "answer": "Help resources include Getting Started guides, Dashboard documentation, Operations Log details, and contact support options."
+  },
+  {
+    "question": "How can I contact CraneIQ support?",
+    "answer": "Support options include email (support@craneiq.com), phone (+1 (800) 555-0199), live chat, and knowledge base access."
+  },
+  {
+    "question": "What are the key features of CraneIQ?",
+    "answer": "Key features include real-time monitoring, historical data analysis, automated alerts, predictive maintenance, and multi-user access with role-based permissions."
+  },
+  {
+    "question": "How do I filter operations in the log?",
+    "answer": "You can filter by specific crane, operation type, and date range using the filter controls and apply filters to update the view."
+  },
+  {
+    "question": "What do the operation type colors represent?",
+    "answer": "Colors represent different operations: Hoist Up/Down, CT Left/Right, LT Forward/Reverse, and Switch operations with distinct color coding."
+  },
+  {
+    "question": "How accurate are operation duration measurements?",
+    "answer": "Operation duration measurements are precise to seconds and are recorded automatically by the crane's control system sensors."
+  },
+  {
+    "question": "Can I track multiple cranes simultaneously?",
+    "answer": "Yes, CraneIQ supports simultaneous tracking of multiple cranes with individual identification and consolidated reporting."
+  },
+  {
+    "question": "How far back does historical data go?",
+    "answer": "Historical data storage duration depends on system configuration, but sample data shows records spanning several days with comprehensive logging."
+  },
+  {
+    "question": "What is OEE in the dashboard?",
+    "answer": "OEE stands for Overall Equipment Effectiveness, which measures crane utilization, performance, and quality metrics."
+  },
+  {
+    "question": "How do I set up custom alerts?",
+    "answer": "Custom alerts can be set up through the Alerts & Notifications section by defining conditions, thresholds, and notification methods."
+  },
+  {
+    "question": "What vibration status colors are used?",
+    "answer": "Vibration status uses colors: Normal (typically green), Warning (yellow/orange), and Critical (red) based on threshold exceedances."
+  },
+  {
+    "question": "How often is vibration data updated?",
+    "answer": "Vibration data updates in real-time as sensors transmit readings, providing continuous monitoring of crane component health."
+  },
+  {
+    "question": "Can I export vibration data for analysis?",
+    "answer": "Yes, vibration data can be exported through the reporting features for external analysis and detailed engineering review."
+  },
+  {
+    "question": "What is the average air gap for brakes?",
+    "answer": "The average air gap is 1.8 mm with a 0.2mm change from the previous month, indicating brake adjustment needs."
+  },
+  {
+    "question": "How is brake lifespan predicted?",
+    "answer": "Brake lifespan is predicted based on activation counts, wear rates, and historical performance data, currently showing 342 days remaining."
+  },
+  {
+    "question": "What are the zone types available?",
+    "answer": "Zone types include Work Zones (normal operation), Restricted Zones (no entry), and Warning Zones (caution required)."
+  },
+  {
+    "question": "How is crane position tracked?",
+    "answer": "Crane position is tracked in 3D coordinates: Bridge (X), Trolley (Z), and Hook Height (Y) with real-time updates."
+  },
+  {
+    "question": "What safety parameters can be set for zones?",
+    "answer": "Safety parameters include speed limits, access restrictions, and proximity warnings based on zone type and operational requirements."
+  },
+  {
+    "question": "How do conditional rules work?",
+    "answer": "Conditional rules trigger actions based on data point conditions like operation time, temperature, load, or maintenance schedules."
+  },
+  {
+    "question": "What actions can rules perform?",
+    "answer": "Rules can trigger alerts, notifications, reports, maintenance requests, or operational changes based on defined conditions."
+  },
+  {
+    "question": "How are data points linked between machines and gateways?",
+    "answer": "Data points are linked by selecting machine data points and corresponding gateway sensor readings, then creating connections for visualization."
+  },
+  {
+    "question": "What data points are typically monitored?",
+    "answer": "Typical data points include Load Weight, Power Consumption, Motor Temperature, Vibration, Position, and Operational status."
+  },
+  {
+    "question": "How are error codes structured?",
+    "answer": "Error codes follow patterns like VFD-ERR-2023-001, indicating component (VFD), type (ERR), year, and sequence number."
+  },
+  {
+    "question": "What is the error resolution process?",
+    "answer": "The process includes error detection, assignment to personnel, investigation, resolution, and status tracking with audit trails."
+  },
+  {
+    "question": "How many scheduled reports are active?",
+    "answer": "There are 8 scheduled reports active, running automatically based on defined schedules and conditions."
+  },
+  {
+    "question": "What are alert trends used for?",
+    "answer": "Alert trends help identify patterns, recurring issues, and system performance over time for proactive maintenance and improvements."
+  },
+  {
+    "question": "How do notification schedules work?",
+    "answer": "Notification schedules can be set for 24/7, business hours only, or with quiet hours to manage alert delivery timing."
+  },
+  {
+    "question": "What machine types can be created?",
+    "answer": "Various machine types including cranes, conveyors, robotic arms, and other industrial equipment with customizable configurations."
+  },
+  {
+    "question": "How are gateways authenticated?",
+    "answer": "Gateways use device tokens (like tok_abc123def456) for secure authentication and communication with the central system."
+  },
+  {
+    "question": "What polling intervals are available for devices?",
+    "answer": "Polling intervals are configurable based on device type and monitoring requirements, balancing data freshness with system load."
+  },
+  {
+    "question": "What is included in the Getting Started guide?",
+    "answer": "The guide covers system overview, key features, dashboard navigation, basic operations, and initial setup procedures."
+  },
+  {
+    "question": "How do I use the filter bar?",
+    "answer": "The filter bar allows quick sorting of cranes by status (Working, Idle, Off) and other parameters for focused monitoring."
+  },
+  {
+    "question": "What quick stats are available?",
+    "answer": "Quick stats include power consumption, current draw, utilization rates, and operational metrics for at-a-glance monitoring."
+  },
+  {
+    "question": "How do I view detailed crane metrics?",
+    "answer": "Click on any crane card in the dashboard to access detailed metrics, historical data, and component-specific information."
+  },
+  {
+    "question": "What advanced filtering options are available?",
+    "answer": "Advanced filtering includes crane selection, operation type, date ranges, load ranges, and status-based filtering for precise data analysis."
+  },
+  {
+    "question": "How are operation durations measured?",
+    "answer": "Durations are measured in minutes:seconds format, automatically recorded from operation start to completion by the control system."
+  },
+  {
+    "question": "What color coding is used for operations?",
+    "answer": "Different colors distinguish hoist, cross travel, long travel, and switching operations for quick visual identification in logs."
+  },
+  {
+    "question": "How do I export operation logs?",
+    "answer": "Operation logs can be exported to CSV, Excel, or PDF formats through the Reports section for external analysis and documentation."
+  },
+  {
+    "question": "What is utilization analysis?",
+    "answer": "Utilization analysis calculates equipment usage rates, idle times, and operational efficiency for capacity planning and optimization."
+  },
+  {
+    "question": "How do I troubleshoot missing operation records?",
+    "answer": "Check sensor connections, verify date filters, confirm crane operation during selected periods, and review system connectivity."
+  },
+  {
+    "question": "What support options are available for persistent issues?",
+    "answer": "For persistent issues, contact support via email, phone, or live chat with detailed error descriptions and system information."
+  },
+  
+  {
+    "question": "What is CraneIQ?",
+    "answer": "CraneIQ is a comprehensive industrial monitoring and management system specifically designed for crane operations. It provides real-time monitoring, data analytics, predictive maintenance, and safety management for various types of cranes including overhead cranes, gantry cranes, and mobile cranes.",
+    "data_source": "CraneIQ System Documentation"
+  },
+  {
+    "question": "Operations Log",
+    "answer": "The Operations Log is a comprehensive record-keeping system that tracks all crane activities including hoisting operations (up/down movements), cross travel (CT left/right), long travel (LT forward/reverse), and switching operations. It records timestamps, durations, load weights, and operational parameters for compliance, analysis, and optimization purposes.",
+    "data_source": "CraneIQ Operations Module"
+  },
+  {
+    "question": "Load monitoring",
+    "answer": "Load monitoring continuously tracks weight measurements during crane operations using load cells and sensors. It calculates capacity utilization percentages, identifies overload conditions, and provides real-time alerts when loads exceed safe operating limits. The system maintains historical load data for trend analysis and compliance reporting.",
+    "data_source": "CraneIQ Load Monitoring System"
+  },
+  {
+    "question": "Vibration analysis",
+    "answer": "Vibration analysis monitors mechanical oscillations across crane components using accelerometers and vibration sensors. It measures parameters including peak acceleration (m/s² RMS), velocity (mm/s RMS), displacement (mm P-P), and dominant frequency (Hz) across X, Y, and Z axes to detect misalignment, bearing wear, and structural issues.",
+    "data_source": "CraneIQ Vibration Monitoring"
+  },
+  {
+    "question": "Temperature thresholds",
+    "answer": "Temperature thresholds define safety limits for crane components: Hoist motors (80°C warning, 90°C critical), CT motors (75°C warning, 85°C critical), LT motors (85°C warning, 95°C critical), Gearboxes (85°C warning, 95°C critical). These thresholds trigger alerts when exceeded to prevent equipment damage and ensure operational safety.",
+    "data_source": "CraneIQ Temperature Monitoring Specifications"
+  },
+  {
+    "question": "Brake system monitoring",
+    "answer": "Brake system monitoring tracks activation counts, wear rates, air gaps, and shoe conditions. It uses sensors to measure brake performance parameters and predicts component lifespan based on usage patterns. The system provides maintenance alerts when wear levels exceed predefined thresholds or when performance degradation is detected.",
+    "data_source": "CraneIQ Brake Monitoring System"
+  },
+  {
+    "question": "Zone control system",
+    "answer": "Zone control system manages operational areas using 3D spatial mapping and real-time position tracking. It defines Work Zones (normal operation), Restricted Zones (access prohibited), and Warning Zones (conditional access) with configurable safety parameters, speed limits, and proximity alerts to prevent collisions and ensure safe operations.",
+    "data_source": "CraneIQ Zone Management"
+  },
+  {
+    "question": "Energy consumption tracking",
+    "answer": "Energy consumption tracking monitors power usage across all crane systems including hoist motors, travel motors, and auxiliary equipment. It calculates efficiency metrics (kWh per ton), identifies energy waste patterns, and provides cost analysis for operational optimization and sustainability reporting.",
+    "data_source": "CraneIQ Energy Monitoring"
+  },
+  {
+    "question": "Error logging system",
+    "answer": "Error logging system captures and categorizes all system faults, sensor anomalies, and operational issues. It uses severity classification (Critical, Error, Warning, Info), automated assignment workflows, resolution tracking, and root cause analysis to maintain equipment reliability and reduce downtime.",
+    "data_source": "CraneIQ Error Management"
+  },
+  {
+    "question": "Predictive maintenance",
+    "answer": "Predictive maintenance uses machine learning algorithms to analyze equipment data and predict potential failures before they occur. It considers vibration patterns, temperature trends, load cycles, and component wear to schedule maintenance activities proactively, reducing unplanned downtime and extending equipment lifespan.",
+    "data_source": "CraneIQ Maintenance Module"
+  },
+  {
+    "question": "Safety compliance",
+    "answer": "Safety compliance features ensure adherence to industrial standards including OSHA, ISO, and ANSI regulations. The system monitors load limits, operational boundaries, maintenance schedules, and safety protocols while generating compliance reports and audit trails for regulatory requirements.",
+    "data_source": "CraneIQ Compliance Management"
+  },
+  {
+    "question": "Real-time alerts",
+    "answer": "Real-time alerts provide immediate notification of critical conditions including overloads, temperature exceedances, vibration anomalies, and safety violations. Alerts are delivered through multiple channels (in-app, email, SMS) with configurable severity levels and escalation procedures for rapid response.",
+    "data_source": "CraneIQ Alert System"
+  },
+  {
+    "question": "Data analytics",
+    "answer": "Data analytics processes operational data to identify trends, patterns, and optimization opportunities. It includes performance benchmarking, utilization analysis, cost tracking, and predictive modeling to support data-driven decision making and continuous improvement initiatives.",
+    "data_source": "CraneIQ Analytics Engine"
+  },
+  {
+    "question": "Reporting features",
+    "answer": "Reporting features generate comprehensive documents including operations logs, load analysis, error summaries, performance trends, and compliance reports. Reports can be customized, scheduled, and exported in multiple formats (PDF, CSV, Excel) for different stakeholder requirements.",
+    "data_source": "CraneIQ Reporting System"
+  },
+  {
+    "question": "User management",
+    "answer": "User management provides role-based access control with permissions for administrators, operators, maintenance staff, and viewers. It includes authentication, authorization, audit trails, and activity logging to ensure secure system access and operational accountability.",
+    "data_source": "CraneIQ Security Framework"
+  },
+  {
+    "question": "IoT integration",
+    "answer": "IoT integration connects sensors, gateways, and control systems through protocols like MQTT and HTTP. It enables real-time data collection from multiple sources, remote monitoring capabilities, and seamless communication between physical equipment and digital management systems.",
+    "data_source": "CraneIQ IoT Architecture"
+  },
+  {
+    "question": "Mobile accessibility",
+    "answer": "Mobile accessibility allows remote monitoring and control through responsive web interfaces and dedicated mobile applications. It provides real-time dashboards, alert notifications, and operational controls for field personnel and management teams.",
+    "data_source": "CraneIQ Mobile Platform"
+  },
+  {
+    "question": "Historical data analysis",
+    "answer": "Historical data analysis examines past operational records to identify long-term trends, seasonal patterns, and performance degradation. It supports capacity planning, maintenance scheduling, and operational optimization through comprehensive data mining and pattern recognition.",
+    "data_source": "CraneIQ Historical Analytics"
+  },
+  {
+    "question": "Capacity utilization",
+    "answer": "Capacity utilization calculates the percentage of maximum load capacity being used during operations. It monitors average utilization rates, identifies underutilized or overstressed equipment, and provides insights for load balancing and resource allocation optimization.",
+    "data_source": "CraneIQ Capacity Management"
+  },
+  {
+    "question": "Maintenance scheduling",
+    "answer": "Maintenance scheduling automates service planning based on operational hours, load cycles, component wear, and manufacturer recommendations. It generates work orders, tracks completion status, and maintains maintenance history for regulatory compliance and warranty management.",
+    "data_source": "CraneIQ Maintenance Scheduler"
+  },
+  {
+    "question": "Cost tracking",
+    "answer": "Cost tracking monitors operational expenses including energy consumption, maintenance costs, repair expenses, and downtime impacts. It provides cost-per-operation metrics, budget vs actual analysis, and ROI calculations for financial management and operational efficiency.",
+    "data_source": "CraneIQ Cost Management"
+  },
+  {
+    "question": "Performance metrics",
+    "answer": "Performance metrics measure key indicators including Overall Equipment Effectiveness (OEE), availability, performance rate, quality rate, mean time between failures (MTBF), and mean time to repair (MTTR) for comprehensive equipment performance assessment.",
+    "data_source": "CraneIQ Performance Monitoring"
+  },
+  {
+    "question": "Sensor calibration",
+    "answer": "Sensor calibration ensures measurement accuracy through regular verification and adjustment procedures. It includes load cell calibration, temperature sensor validation, vibration sensor alignment, and position sensor accuracy checks to maintain data reliability and system integrity.",
+    "data_source": "CraneIQ Calibration Management"
+  },
+  {
+    "question": "Emergency shutdown",
+    "answer": "Emergency shutdown procedures provide immediate crane stoppage during critical safety events. The system includes manual emergency stops, automated safety triggers, and controlled shutdown sequences to prevent accidents and equipment damage while ensuring personnel safety.",
+    "data_source": "CraneIQ Safety Systems"
+  },
+  {
+    "question": "Data export capabilities",
+    "answer": "Data export capabilities allow extraction of operational data in various formats including CSV, Excel, PDF, and JSON. It supports custom data selection, filtering options, and automated export scheduling for integration with external systems and reporting requirements.",
+    "data_source": "CraneIQ Data Export Features"
+  },
+  {
+    "question": "API integration",
+    "answer": "API integration provides programmable interfaces for connecting CraneIQ with other enterprise systems including ERP, CMMS, and SCADA systems. It supports RESTful APIs, webhooks, and data synchronization for seamless information exchange and process automation.",
+    "data_source": "CraneIQ Integration Framework"
+  },
+  {
+    "question": "Customizable dashboards",
+    "answer": "Customizable dashboards allow users to configure display layouts, widget selections, and data visualizations according to their specific roles and responsibilities. It includes drag-and-drop interface, preset templates, and personalization options for optimal user experience.",
+    "data_source": "CraneIQ Dashboard System"
+  },
+  {
+    "question": "Asset management",
+    "answer": "Asset management tracks crane equipment details including specifications, maintenance history, warranty information, and lifecycle status. It provides asset registers, depreciation tracking, and replacement planning for comprehensive equipment management.",
+    "data_source": "CraneIQ Asset Registry"
+  },
+  {
+    "question": "Training management",
+    "answer": "Training management tracks operator certifications, competency assessments, and training requirements. It includes certification expiry alerts, training records, and skill matrices to ensure qualified personnel operate equipment according to safety standards.",
+    "data_source": "CraneIQ Training Module"
+  },
+  {
+    "question": "Incident reporting",
+    "answer": "Incident reporting captures safety events, near-misses, and equipment failures with detailed documentation requirements. It includes investigation workflows, corrective action tracking, and regulatory reporting capabilities for safety management and continuous improvement.",
+    "data_source": "CraneIQ Incident Management"
+  },
+  {
+    "question": "Remote diagnostics",
+    "answer": "Remote diagnostics enable technical support teams to analyze equipment issues without physical presence. It includes real-time data access, diagnostic tools, and remote troubleshooting capabilities to reduce resolution time and minimize operational disruptions.",
+    "data_source": "CraneIQ Diagnostic Tools"
+  },
+  {
+    "question": "Backup and recovery",
+    "answer": "Backup and recovery systems ensure data protection through automated backups, redundancy configurations, and disaster recovery procedures. It includes data replication, backup verification, and restoration capabilities to maintain business continuity.",
+    "data_source": "CraneIQ Data Protection"
+  },
+  {
+    "question": "Software updates",
+    "answer": "Software updates provide regular enhancements including new features, security patches, and performance improvements. The system supports automated update distribution, version control, and rollback capabilities to ensure system reliability and current functionality.",
+    "data_source": "CraneIQ Update Management"
+  },
+  {
+    "question": "Multi-language support",
+    "answer": "Multi-language support enables interface localization for international operations. It includes language selection, regional settings, and localized documentation to accommodate diverse user bases and global deployment requirements.",
+    "data_source": "CraneIQ Internationalization"
+  },
+  {
+    "question": "Accessibility features",
+    "answer": "Accessibility features ensure system usability for users with disabilities through screen reader compatibility, keyboard navigation, high contrast modes, and adjustable text sizes in compliance with WCAG guidelines and accessibility standards.",
+    "data_source": "CraneIQ Accessibility Compliance"
+  },
+  {
+    "question": "Data privacy",
+    "answer": "Data privacy protections include user consent management, data anonymization, access controls, and compliance with privacy regulations like GDPR and CCPA. It ensures sensitive information is protected according to legal and organizational requirements.",
+    "data_source": "CraneIQ Privacy Framework"
+  },
+  {
+    "question": "System requirements",
+    "answer": "System requirements specify hardware, software, and network prerequisites for optimal CraneIQ performance. This includes server specifications, browser compatibility, network bandwidth, and supported operating systems for different deployment scenarios.",
+    "data_source": "CraneIQ Technical Specifications"
+  },
+  {
+    "question": "Implementation process",
+    "answer": "Implementation process follows structured methodology including requirements analysis, system configuration, data migration, user training, and go-live support. It includes project planning, milestone tracking, and post-implementation review for successful deployment.",
+    "data_source": "CraneIQ Implementation Guide"
+  },
+  {
+    "question": "Technical support",
+    "answer": "Technical support provides assistance through multiple channels including phone, email, chat, and remote access. It includes tiered support levels, service level agreements (SLAs), and knowledge base resources for issue resolution and user assistance.",
+    "data_source": "CraneIQ Support Services"
+  },
+  {
+    "question": "Documentation resources",
+    "answer": "Documentation resources include user manuals, technical guides, API documentation, and best practice recommendations. It provides comprehensive reference materials for system operation, administration, and troubleshooting procedures.",
+    "data_source": "CraneIQ Documentation Library"
+  },
+  {
+    "question": "Community features",
+    "answer": "Community features enable user collaboration through forums, knowledge sharing, and user group activities. It facilitates experience exchange, best practice discussions, and peer support among CraneIQ users across different organizations.",
+    "data_source": "CraneIQ Community Platform"
+  },
+  {
+    "question": "Vendor management",
+    "answer": "Vendor management tracks equipment suppliers, service providers, and maintenance contractors. It includes performance monitoring, contract management, and service level tracking for supplier relationship management and quality assurance.",
+    "data_source": "CraneIQ Vendor Portal"
+  },
+  {
+    "question": "Regulatory updates",
+    "answer": "Regulatory updates monitor changes in safety standards, environmental regulations, and industry requirements. It includes compliance tracking, update notifications, and impact assessment to ensure ongoing regulatory adherence.",
+    "data_source": "CraneIQ Compliance Monitoring"
+  },
+  {
+    "question": "Benchmarking capabilities",
+    "answer": "Benchmarking capabilities compare performance metrics against industry standards and peer organizations. It provides performance gaps analysis, best practice identification, and improvement opportunities for competitive positioning.",
+    "data_source": "CraneIQ Benchmarking Tools"
+  },
+  {
+    "question": "Risk assessment",
+    "answer": "Risk assessment identifies potential hazards, evaluates likelihood and impact, and prioritizes mitigation measures. It includes risk registers, control effectiveness evaluation, and ongoing risk monitoring for proactive safety management.",
+    "data_source": "CraneIQ Risk Management"
+  },
+  {
+    "question": "Sustainability reporting",
+    "answer": "Sustainability reporting tracks environmental metrics including energy efficiency, carbon emissions, and resource consumption. It supports ESG reporting requirements and sustainability initiative tracking for corporate responsibility programs.",
+    "data_source": "CraneIQ Sustainability Module"
+  },
+  {
+    "question": "Custom fields",
+    "answer": "Custom fields allow organizations to extend data capture beyond standard parameters. It includes field creation, data type selection, and validation rules for organization-specific requirements and unique operational needs.",
+    "data_source": "CraneIQ Customization Features"
+  },
+  {
+    "question": "Workflow automation",
+    "answer": "Workflow automation streamlines business processes through predefined rules and automated actions. It includes approval workflows, notification chains, and task assignments for operational efficiency and process standardization.",
+    "data_source": "CraneIQ Automation Engine"
+  },
+  {
+    "question": "Data visualization",
+    "answer": "Data visualization presents operational information through charts, graphs, gauges, and heat maps. It includes real-time dashboards, historical trends, and interactive reports for intuitive data interpretation and decision support.",
+    "data_source": "CraneIQ Visualization Tools"
+  },
+  {
+    "question": "Mobile notifications",
+    "answer": "Mobile notifications deliver alerts and updates to smartphones and tablets. It includes push notifications, configurable alert types, and delivery timing options for timely information access and rapid response capabilities.",
+    "data_source": "CraneIQ Mobile Alerts"
+  },
+  {
+    "question": "Offline functionality",
+    "answer": "Offline functionality allows system operation during network disruptions through local data caching and synchronization. It includes data capture continuation, local processing, and automatic synchronization when connectivity is restored.",
+    "data_source": "CraneIQ Offline Capabilities"
+  },
+  {
+    "question": "Search capabilities",
+    "answer": "Search capabilities enable quick information retrieval across all system data. It includes keyword search, advanced filtering, and saved search configurations for efficient data access and information discovery.",
+    "data_source": "CraneIQ Search Engine"
+  },
+  {
+    "question": "Audit trails",
+    "answer": "Audit trails record all system activities including user actions, data changes, and configuration modifications. It provides comprehensive logging, change history, and compliance reporting for security and accountability purposes.",
+    "data_source": "CraneIQ Audit System"
+  },
+  {
+    "question": "Integration templates",
+    "answer": "Integration templates provide pre-built connectors for common enterprise systems and industrial protocols. It includes configuration wizards, mapping tools, and testing utilities for simplified system integration and data exchange.",
+    "data_source": "CraneIQ Integration Templates"
+  },
+  {
+    "question": "Performance optimization",
+    "answer": "Performance optimization ensures system responsiveness through database tuning, query optimization, and resource management. It includes performance monitoring, bottleneck identification, and optimization recommendations for optimal system operation.",
+    "data_source": "CraneIQ Performance Management"
+  },
+  {
+    "question": "Scalability features",
+    "answer": "Scalability features support organizational growth through modular architecture and flexible deployment options. It includes user capacity expansion, data volume management, and distributed processing capabilities for evolving business needs.",
+    "data_source": "CraneIQ Scalability Architecture"
+  },
+  {
+    "question": "Disaster recovery",
+    "answer": "Disaster recovery procedures ensure business continuity through backup systems, redundant infrastructure, and recovery protocols. It includes recovery time objectives (RTO), recovery point objectives (RPO), and testing procedures for reliability assurance.",
+    "data_source": "CraneIQ Disaster Recovery"
+  },
+  {
+    "question": "User training",
+    "answer": "User training programs include onboarding sessions, role-based training materials, and continuous learning resources. It covers system navigation, operational procedures, and advanced features for user proficiency and system adoption.",
+    "data_source": "CraneIQ Training Programs"
+  },
+  {
+    "question": "Quality assurance",
+    "answer": "Quality assurance processes ensure system reliability through testing protocols, quality gates, and continuous monitoring. It includes functional testing, performance validation, and user acceptance testing for quality deliverables.",
+    "data_source": "CraneIQ Quality Management"
+  },
+  {
+    "question": "Change management",
+    "answer": "Change management procedures control system modifications through request tracking, impact assessment, and approval workflows. It ensures controlled changes, minimal disruptions, and proper documentation of all system alterations.",
+    "data_source": "CraneIQ Change Control"
+  },
+  {
+    "question": "Data migration",
+    "answer": "Data migration tools transfer historical information from legacy systems through extraction, transformation, and loading processes. It includes data mapping, validation checks, and migration reporting for accurate data transfer.",
+    "data_source": "CraneIQ Migration Utilities"
+  },
+  {
+    "question": "System architecture",
+    "answer": "System architecture describes the technical framework including database design, application layers, and integration points. It provides scalability, security, and performance foundations for reliable system operation and future enhancements.",
+    "data_source": "CraneIQ Technical Architecture"
+  },
+  {
+    "question": "Security features",
+    "answer": "Security features protect system integrity through authentication, authorization, encryption, and monitoring. It includes multi-factor authentication, role-based access control, and security event logging for comprehensive protection.",
+    "data_source": "CraneIQ Security Framework"
+  },
+  {
+    "question": "Compliance reporting",
+    "answer": "Compliance reporting generates standardized documents for regulatory requirements and internal audits. It includes automated report generation, compliance status tracking, and evidence collection for audit readiness.",
+    "data_source": "CraneIQ Compliance Reporting"
+  },
+  {
+    "question": "Operational intelligence",
+    "answer": "Operational intelligence analyzes real-time data to provide actionable insights and decision support. It includes pattern recognition, anomaly detection, and predictive analytics for proactive operations management.",
+    "data_source": "CraneIQ Intelligence Platform"
+  },
+  {
+    "question": "Maintenance optimization",
+    "answer": "Maintenance optimization balances preventive, predictive, and corrective maintenance strategies. It uses equipment data, failure patterns, and cost analysis to determine optimal maintenance intervals and resource allocation.",
+    "data_source": "CraneIQ Maintenance Optimization"
+  },
+  {
+    "question": "Resource planning",
+    "answer": "Resource planning manages personnel, equipment, and material allocation for operational activities. It includes capacity planning, scheduling optimization, and resource utilization tracking for efficient operations management.",
+    "data_source": "CraneIQ Resource Management"
+  },
+  {
+    "question": "Performance alerts",
+    "answer": "Performance alerts notify stakeholders when key performance indicators deviate from targets. It includes threshold configuration, alert prioritization, and performance trend analysis for continuous improvement monitoring.",
+    "data_source": "CraneIQ Performance Alerts"
+  },
+  {
+    "question": "Data governance",
+    "answer": "Data governance establishes policies and procedures for data quality, security, and lifecycle management. It includes data stewardship, quality standards, and compliance frameworks for reliable information management.",
+    "data_source": "CraneIQ Data Governance"
+  },
+  {
+    "question": "Business intelligence",
+    "answer": "Business intelligence transforms operational data into strategic insights through advanced analytics and reporting. It includes KPI dashboards, trend analysis, and strategic reporting for executive decision making.",
+    "data_source": "CraneIQ Business Intelligence"
+  },
+  {
+    "question": "Operational efficiency",
+    "answer": "Operational efficiency metrics measure productivity, utilization, and cost-effectiveness of crane operations. It includes efficiency benchmarking, waste identification, and improvement tracking for performance optimization.",
+    "data_source": "CraneIQ Efficiency Analytics"
+  },
+  {
+    "question": "Safety performance",
+    "answer": "Safety performance monitoring tracks incident rates, near-misses, and safety compliance metrics. It includes safety KPIs, trend analysis, and improvement initiatives for proactive safety management.",
+    "data_source": "CraneIQ Safety Analytics"
+  },
+  {
+    "question": "Equipment reliability",
+    "answer": "Equipment reliability analysis measures mean time between failures (MTBF), failure rates, and reliability trends. It includes reliability modeling, failure pattern analysis, and improvement recommendations for asset performance.",
+    "data_source": "CraneIQ Reliability Engineering"
+  },
+  {
+    "question": "Operational continuity",
+    "answer": "Operational continuity ensures uninterrupted crane services through redundancy planning, backup systems, and contingency procedures. It includes business impact analysis and continuity planning for critical operations protection.",
+    "data_source": "CraneIQ Continuity Management"
+  },
+  {
+    "question": "Stakeholder reporting",
+    "answer": "Stakeholder reporting provides customized information for different audiences including management, regulators, and operational teams. It includes role-based dashboards, automated distribution, and interactive reporting capabilities.",
+    "data_source": "CraneIQ Stakeholder Communication"
+  },
+  {
+    "question": "Innovation features",
+    "answer": "Innovation features incorporate emerging technologies including AI, machine learning, and IoT advancements. It includes predictive analytics, automated optimization, and smart monitoring capabilities for continuous innovation.",
+    "data_source": "CraneIQ Innovation Roadmap"
+  },
+  {
+    "question": "User experience",
+    "answer": "User experience design focuses on intuitive interfaces, efficient workflows, and responsive design. It includes user feedback collection, usability testing, and continuous improvement for optimal user satisfaction.",
+    "data_source": "CraneIQ UX Design"
+  },
+  {
+    "question": "System reliability",
+    "answer": "System reliability ensures consistent performance through robust architecture, redundancy, and fault tolerance. It includes uptime monitoring, performance benchmarking, and reliability engineering for dependable operations.",
+    "data_source": "CraneIQ Reliability Framework"
+  },
+  {
+    "question": "Operational transparency",
+    "answer": "Operational transparency provides visibility into all crane activities, performance metrics, and safety compliance. It includes real-time monitoring, historical reporting, and audit trails for accountable operations management.",
+    "data_source": "CraneIQ Transparency Features"
+  },
+  {
+    "question": "Strategic planning",
+    "answer": "Strategic planning support uses historical data and predictive analytics for long-term equipment planning and investment decisions. It includes capacity forecasting, lifecycle analysis, and capital planning tools.",
+    "data_source": "CraneIQ Strategic Tools"
+  },
+  {
+    "question": "Continuous improvement",
+    "answer": "Continuous improvement processes use operational data to identify enhancement opportunities and track improvement initiatives. It includes performance gap analysis, improvement tracking, and results measurement.",
+    "data_source": "CraneIQ Improvement Framework"
+  },
+  {
+    "question": "Knowledge management",
+    "answer": "Knowledge management captures and shares operational expertise, best practices, and troubleshooting guides. It includes knowledge bases, expert directories, and collaborative tools for organizational learning.",
+    "data_source": "CraneIQ Knowledge System"
+  },
+  {
+    "question": "Vendor performance",
+    "answer": "Vendor performance tracking monitors supplier reliability, service quality, and contract compliance. It includes performance scoring, vendor comparisons, and improvement initiatives for supply chain optimization.",
+    "data_source": "CraneIQ Vendor Management"
+  },
+  {
+    "question": "Regulatory intelligence",
+    "answer": "Regulatory intelligence monitors changing requirements and assesses compliance impacts. It includes regulation tracking, impact analysis, and compliance planning for proactive regulatory management.",
+    "data_source": "CraneIQ Regulatory Monitoring"
+  },
+  {
+    "question": "Technology roadmap",
+    "answer": "Technology roadmap outlines future system enhancements, technology adoption, and capability evolution. It includes feature planning, technology assessment, and upgrade scheduling for strategic technology management.",
+    "data_source": "CraneIQ Technology Planning"
+  },
+  {
+    "question": "Customer support",
+    "answer": "Customer support services provide technical assistance, training, and consultation for system optimization. It includes support portals, service requests, and customer success management for user satisfaction.",
+    "data_source": "CraneIQ Customer Services"
+  },
+  {
+    "question": "System documentation",
+    "answer": "System documentation includes technical specifications, user guides, and administration manuals. It provides comprehensive reference materials for system operation, maintenance, and troubleshooting.",
+    "data_source": "CraneIQ Documentation System"
+  },
+  {
+    "question": "Quality metrics",
+    "answer": "Quality metrics measure system performance, data accuracy, and user satisfaction. It includes quality indicators, performance targets, and improvement tracking for service quality management.",
+    "data_source": "CraneIQ Quality Monitoring"
+  },
+  {
+    "question": "Operational readiness",
+    "answer": "Operational readiness ensures system availability, user preparedness, and process maturity for reliable operations. It includes readiness assessments, gap analysis, and improvement planning.",
+    "data_source": "CraneIQ Readiness Management"
+  },
+  {
+    "question": "Risk mitigation",
+    "answer": "Risk mitigation implements controls and procedures to reduce identified risks to acceptable levels. It includes control effectiveness monitoring, risk treatment plans, and residual risk assessment.",
+    "data_source": "CraneIQ Risk Control"
+  },
+  {
+    "question": "Performance benchmarking",
+    "answer": "Performance benchmarking compares operational metrics against industry standards and best practices. It includes gap analysis, improvement targeting, and competitive positioning for performance excellence.",
+    "data_source": "CraneIQ Benchmarking System"
+  },
+  {
+    "question": "Stakeholder engagement",
+    "answer": "Stakeholder engagement manages communication and collaboration with all system users and interested parties. It includes feedback mechanisms, communication planning, and relationship management.",
+    "data_source": "CraneIQ Engagement Framework"
+  },
+  {
+    "question": "Value realization",
+    "answer": "Value realization tracks benefits achievement and return on investment from system implementation. It includes benefit measurement, value tracking, and optimization initiatives for maximum business value.",
+    "data_source": "CraneIQ Value Management"
+  },
+  {
+    "question": "Operational excellence",
+    "answer": "Operational excellence framework drives continuous improvement in safety, reliability, and efficiency. It includes best practices, performance standards, and excellence initiatives for world-class operations.",
+    "data_source": "CraneIQ Excellence Program"
+  },
+  {
+    "question": "Digital transformation",
+    "answer": "Digital transformation enables modernization of crane operations through technology adoption and process innovation. It includes digital strategy, capability development, and transformation roadmap for competitive advantage.",
+    "data_source": "CraneIQ Transformation Framework"
+  },
+  {
+    "question": "Future capabilities",
+    "answer": "Future capabilities planning identifies emerging requirements and technology opportunities for system enhancement. It includes capability roadmaps, innovation scanning, and future readiness planning.",
+    "data_source": "CraneIQ Future Planning"
+  }
+ 
+]   
+    

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">ja01dd10.ala.asia-southeast1.emqxsl.com</domain>
+        <domain includeSubdomains="true">broker.hivemq.com</domain>
+        <domain includeSubdomains="true">test.mosquitto.org</domain>
+    </domain-config>
+</network-security-config>
